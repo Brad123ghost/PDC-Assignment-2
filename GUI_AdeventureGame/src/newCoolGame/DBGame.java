@@ -85,4 +85,5 @@ public class DBGame {
         dbManager.updateDB(createQuery);
         dbManager.updateDB(insertQuery);
     }
+
 }
