@@ -6,16 +6,17 @@ package gui_adeventuregame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Observable;
-import java.util.Observer;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Bradley
  */
-public class MenuController implements Observer{
+
+public class MenuController{
 
     private MenuPanel mView;
+    private JPanel currentPanel;
     
     public MenuController() {
         System.out.println("Menu Controller Created");
@@ -23,20 +24,24 @@ public class MenuController implements Observer{
     
     public void controllerAddView(MenuPanel mView) {
         this.mView = mView;
+        currentPanel = this.mView.getCurrentPanel();
+        currentPanel.get
     }
 
     private void eventHandleNewGame() {
         System.out.println("New Game");
+        mView.setState(GameState.NEW_GAME_MENU);
     }
     private void eventHandleLoadGame() {
         System.out.println("Load Game");
+        mView.setState(GameState.LOAD_GAME_MENU);
     }
     private void eventHandleExitGame() {
         System.out.println("Exit Game");
     }
     
     public void eventListener() {
-        mView.getNGBtn().addActionListener(new ActionListener() {
+        currentPanel.getNGBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 eventHandleNewGame();
@@ -56,10 +61,6 @@ public class MenuController implements Observer{
         });
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     
 }
