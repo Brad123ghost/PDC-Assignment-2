@@ -49,6 +49,9 @@ public class MenuController {
         System.out.println(name);
         if(!checkValidString(name)) {
             ngPanel.setErrorMsg();
+        } else {
+            currentGFrame.setMenuState(State.GAME_START);
+            currentGFrame.checkState();
         }
         
     }
