@@ -4,12 +4,18 @@
  */
 package Menu;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.geom.Rectangle2D;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -17,18 +23,19 @@ import javax.swing.JPanel;
  */
 public class MenuPanel extends MenuTemplate{
 //    private JPanel panel;
-    
+
     private JButton newGameBtn;
     private JButton loadGameBtn;
     private JButton exitGameBtn;
     private String titleName;
  
-    
  
     public MenuPanel() {
         super.setTitleText("Adventure Game");
+//        this.setLayout(new FlowLayout(SwingConstants.LEADING, 10, 10));
         this.setLayout(null);
         this.titleName = "Adventure Game";
+
         newGameBtn = new JButton("New Game");
         newGameBtn.setBounds(this.width/2-75, 200, 150, 50);
         newGameBtn.setContentAreaFilled(true);
@@ -52,7 +59,6 @@ public class MenuPanel extends MenuTemplate{
         exitGameBtn.setOpaque(true);
         exitGameBtn.setBackground(Color.orange);
         this.add(exitGameBtn);
- 
         System.out.println("Menu View Created");
     }
     
