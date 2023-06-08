@@ -9,5 +9,7 @@ package newCoolGame;
  * @author Bradley
  */
 public class GameApplication {
-    
+    public static void main(String[] args) {
+        GameFrame game = new GameFrame();
+    }
 }
