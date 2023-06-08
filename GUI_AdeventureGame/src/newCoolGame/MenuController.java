@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Menu;
+package newCoolGame;
 
 import newCoolGame.State;
 import java.awt.event.ActionEvent;
@@ -16,12 +16,14 @@ import newCoolGame.GameFrame;
  * @author Bradley
  */
 public class MenuController {
+    GameMemory gMemory;
     GameFrame currentGFrame;
     
     MenuPanel mPanel;
     NewGamePanel ngPanel;
     
     public MenuController(GameFrame gFrame, MenuPanel mPanel, NewGamePanel ngPanel) {
+        this.gMemory = GameMemory.getGMemInstance();
         this.currentGFrame = gFrame;
         this.mPanel = mPanel;
         this.ngPanel = ngPanel;
@@ -50,6 +52,7 @@ public class MenuController {
         if(!checkValidString(name)) {
             ngPanel.setErrorMsg();
         } else {
+            gMemory.createNewPlayer(name);
             currentGFrame.setMenuState(State.GAME_START);
             currentGFrame.checkState();
         }

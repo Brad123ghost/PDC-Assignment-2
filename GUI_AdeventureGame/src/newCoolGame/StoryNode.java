@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Game;
+package newCoolGame;
 
 import java.util.ArrayList;
 
@@ -15,11 +15,15 @@ public class StoryNode {
     ArrayList<String> text;
     String optionOne;
     String optionTwo;
+    String oneNextChoice;
+    String twoNextChoice;
     
-    public StoryNode(String name, ArrayList<String> text, String optionOne, String optionTwo) {
+    public StoryNode(String name, ArrayList<String> text, String optionOne, String optionTwo, String oneNextChoice, String twoNextChoice) {
         this.name = name;
         this.text = text;
         this.optionOne = optionOne;
         this.optionTwo = optionTwo;
+        this.oneNextChoice = oneNextChoice;
+        this.twoNextChoice = twoNextChoice;
     }
 }

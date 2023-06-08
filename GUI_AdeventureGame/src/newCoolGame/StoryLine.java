@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Game;
+package newCoolGame;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,9 +14,20 @@ import java.util.HashMap;
 public class StoryLine {
     HashMap<String, StoryNode> storyNodes;
     ArrayList<String> text;
-    public StoryLine() {
-        storyNodes = new HashMap<>();
+    String currentStory;
+    private StoryLine(){};
+    public static StoryLine storyLineInstance;
+    
+    public static synchronized StoryLine getStoryLineInstance() {
+        if(storyLineInstance == null) {
+            storyLineInstance = new StoryLine();
+            storyLineInstance.storyNodes = new HashMap<>();
+            storyLineInstance.createBeachStart();
+        }
+        
+        return storyLineInstance;
     }
+  
     
     public void createBeachStart() {
         text = new ArrayList<>();
@@ -28,9 +39,10 @@ public class StoryLine {
         text.add(line3);
         String nodeName = "beachStart";
         
-        StoryNode newNode = new StoryNode(nodeName, text, "", "beachExplore");
+        StoryNode newNode = new StoryNode(nodeName, text, "", "beachExplore", "", "Continue");
         
         storyNodes.put(nodeName, newNode);
+        this.createBeachExplore();
     }
     
     public void createBeachExplore() {
@@ -41,7 +53,7 @@ public class StoryLine {
         text.add(line2);
         String nodeName = "beachExplore";
         
-        StoryNode newNode = new StoryNode(nodeName, text, "beachEncounter", "beachRun");
+        StoryNode newNode = new StoryNode(nodeName, text, "beachEncounter", "beachRun", "Fight It", "Run Away");
         
         storyNodes.put(nodeName, newNode);
     }

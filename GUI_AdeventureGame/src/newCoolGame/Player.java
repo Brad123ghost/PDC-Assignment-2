@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Game;
+package newCoolGame;
 
 import newCoolGame.Inventory;
 
@@ -17,7 +17,7 @@ public class Player {
     String progress;
     int coins;
     Inventory inventory;
-    static Player playerInstance;
+    public static Player playerInstance;
 
     private Player() {};
     
@@ -32,4 +32,9 @@ public class Player {
         
         return playerInstance;
     }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+ 
 }

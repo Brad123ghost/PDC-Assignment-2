@@ -4,11 +4,6 @@
  */
 package newCoolGame;
 
-import Game.GameController;
-import Game.GamePanel;
-import Menu.MenuController;
-import Menu.MenuPanel;
-import Menu.NewGamePanel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Map;
@@ -24,7 +19,7 @@ public class GameFrame{
     private JFrame frame;
     
     // Game Memory
-    GameMemory gMemory = new GameMemory();
+    GameMemory gMemory = GameMemory.getGMemInstance();
     
     // Menu Panel/Controller
     private MenuController menuModel;
@@ -63,11 +58,12 @@ public class GameFrame{
         this.menuModel = new MenuController(this, menuPanel, newGamePanel);
         
         this.gamePanel = new GamePanel();
-//        this.gameModel = new GameController();
+        this.gameModel = new GameController(this, gamePanel);
         this.frame.add(menuPanel);
         this.frame.setVisible(true);
         
         gMemory.queryShopUpgrades();
+        gMemory.queryEnemies();
 
     }
     
@@ -85,9 +81,13 @@ public class GameFrame{
                 this.frame.add(newGamePanel);
                 break;
             case GAME_START:
+                this.gamePanel.updateStats();
+                this.gamePanel.displayCurrentStory("beachStart");
+                this.gameModel.addGamePanelListeners();
                 this.frame.remove(menuPanel);
                 this.frame.remove(newGamePanel);
                 this.frame.add(gamePanel);
+                
                 break;
             case EXIT_GAME:
 //                int x = JOptionPane.showConfirmDialog(null, "Do you really want to quit?", "Close", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);

@@ -5,7 +5,6 @@
 package newCoolGame;
 
 import Database.DBManager;
-import Game.StoryNode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,20 +17,29 @@ import java.util.logging.Logger;
  * @author Bradley
  */
 public class GameMemory {
+    private Player player;
     private Inventory inventory;
     private Shop shop;
     private DBManager dbManager;
     private GameMemory gameMemInstance;
     private HashMap<String, Enemy> enemies;
+    private static GameMemory gameMemoryInstance;
     
+    private GameMemory(){};
     
-    public GameMemory() {
-        inventory = Inventory.getInvInstance();
-        shop = new Shop();
-        dbManager = DBManager.getDBInstance();
-        enemies = new HashMap<>();
-
+    public static synchronized GameMemory getGMemInstance() {
+        if(gameMemoryInstance == null) {
+            gameMemoryInstance = new GameMemory();
+            gameMemoryInstance.player = Player.getPlayerInstance();
+            gameMemoryInstance.inventory = Inventory.getInvInstance();
+            gameMemoryInstance.shop = Shop.getShopInstance();
+            gameMemoryInstance.dbManager = DBManager.getDBInstance();
+            gameMemoryInstance.enemies = new HashMap<>();
+        }
+        
+        return gameMemoryInstance;
     }
+
     
     public void queryShopUpgrades() {
         this.queryWeaponUpgrades();
@@ -88,5 +96,12 @@ public class GameMemory {
         } catch (SQLException ex) {
             Logger.getLogger(GameMemory.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void createNewPlayer(String name) {
+        player.name = name;
+        inventory.setCurrentWeapon((Weapon)shop.getWeapIndex(0));
+        inventory.setCurrenArmour((Armour)shop.getArmourIndex(0));
+        System.out.println("New player");
     }
 }
