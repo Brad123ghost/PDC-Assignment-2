@@ -20,10 +20,17 @@ public final class DBManager {
     private static final String PASSWORD = "";
     private static final String URL = "jdbc:derby:AdventureGameDB_Ebd;create=true";
     
-    Connection conn;
+    private Connection conn;
     
-    public DBManager() {
-        establishConnection();
+    private static DBManager dbInstance;
+    private DBManager(){}
+    
+    public static synchronized DBManager getDBInstance() {
+        if(dbInstance == null) {
+            dbInstance = new DBManager();
+            dbInstance.establishConnection();
+        }
+        return dbInstance;
     }
     
     public Connection getConnection() {
