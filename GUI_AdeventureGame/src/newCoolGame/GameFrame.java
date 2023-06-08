@@ -11,6 +11,7 @@ import Menu.MenuPanel;
 import Menu.NewGamePanel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -21,6 +22,9 @@ import javax.swing.JPanel;
  */
 public class GameFrame{
     private JFrame frame;
+    
+    // Game Memory
+    GameMemory gMemory = new GameMemory();
     
     // Menu Panel/Controller
     private MenuController menuModel;
@@ -63,6 +67,18 @@ public class GameFrame{
         this.frame.add(menuPanel);
 //this.frame.add(newGamePanel);
         this.frame.setVisible(true);
+        
+        gMemory.queryShopUpgrades();
+        gMemory.queryEnemies();
+        for(Node n : gMemory.test) {
+            System.out.println(n);
+        }
+        for(Node n : gMemory.test2) {
+            System.out.println(n);
+        }
+        for(Map.Entry<String, Enemy> m : gMemory.enemies.entrySet()) {
+            System.out.println(m);
+        }
     }
     
     public void checkState() {
