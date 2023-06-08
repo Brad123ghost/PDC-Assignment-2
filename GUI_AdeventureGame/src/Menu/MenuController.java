@@ -4,9 +4,11 @@
  */
 package Menu;
 
+import newCoolGame.State;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 import newCoolGame.GameFrame;
 
 /**
@@ -28,7 +30,7 @@ public class MenuController {
     
     private void eventHandleNewGame() {
         System.out.println("New Game");
-        currentGFrame.setMenuState(MenuState.NEW_GAME);
+        currentGFrame.setMenuState(State.NEW_GAME);
         currentGFrame.checkState();
     }
     private void eventHandleLoadGame() {
@@ -36,8 +38,19 @@ public class MenuController {
     }
     private void eventHandleExitGame() {
         System.out.println("Exit Game");
-        currentGFrame.setMenuState(MenuState.EXIT_GAME);
+        currentGFrame.setMenuState(State.EXIT_GAME);
         currentGFrame.checkState();
+    }
+    
+    private void eventHandleStartGame() {
+        System.out.println("Start Game");
+        JTextField nameField = ngPanel.getNameField();
+        String name = nameField.getText();
+        System.out.println(name);
+        if(!checkValidString(name)) {
+            ngPanel.setErrorMsg();
+        }
+        
     }
     
     private void eventListener() {
@@ -59,5 +72,20 @@ public class MenuController {
                 eventHandleExitGame();
             }
         });
+        
+        ngPanel.getStartBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eventHandleStartGame();
+            }
+        });
+    }
+    
+    private boolean checkValidString(String toCheck) {
+        if(!toCheck.matches("[a-zA-Z]+") || toCheck.equals("")) {
+            return false;
+        }
+        
+        return true;
     }
 }

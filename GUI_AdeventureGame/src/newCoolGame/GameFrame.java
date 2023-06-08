@@ -4,9 +4,10 @@
  */
 package newCoolGame;
 
+import Game.GameController;
+import Game.GamePanel;
 import Menu.MenuController;
 import Menu.MenuPanel;
-import Menu.MenuState;
 import Menu.NewGamePanel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -21,11 +22,18 @@ import javax.swing.JPanel;
 public class GameFrame{
     private JFrame frame;
     
+    // Menu Panel/Controller
     private MenuController menuModel;
     private MenuPanel menuPanel;
     private NewGamePanel newGamePanel;
+    
+    // Game Panel/Controller
+    private GameController gameMode;
+    private GamePanel gamePanel;
+//    private
+    
 //    private JPanel menuJPanel;
-    MenuState mState = MenuState.MAIN_MENU;
+    State mState = State.MAIN_MENU;
     int width = 960;
     int height = 540;
     
@@ -68,6 +76,8 @@ public class GameFrame{
                 this.frame.remove(menuPanel);
                 this.frame.add(newGamePanel);
                 break;
+            case GAME_START:
+                break;
             case EXIT_GAME:
 //                int x = JOptionPane.showConfirmDialog(null, "Do you really want to quit?", "Close", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 //                if(x == JOptionPane.YES_OPTION) {
@@ -86,7 +96,7 @@ public class GameFrame{
         this.frame.repaint();
     }
     
-    public void setMenuState(MenuState newState) {
+    public void setMenuState(State newState) {
         this.mState = newState;
     }
  
