@@ -4,6 +4,8 @@
  */
 package newCoolGame;
 
+import Database.DBGame;
+
 /**
  *
  * @author Bradley
@@ -12,6 +14,7 @@ public class GameApplication {
     public static void main(String[] args) {
         DBGame gameDB = new DBGame();
         gameDB.dbSetUp();
+        
         GameFrame game = new GameFrame();
     }
 }
