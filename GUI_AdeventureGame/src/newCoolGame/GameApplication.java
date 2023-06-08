@@ -10,6 +10,8 @@ package newCoolGame;
  */
 public class GameApplication {
     public static void main(String[] args) {
+        DBGame gameDB = new DBGame();
+        gameDB.dbSetUp();
         GameFrame game = new GameFrame();
     }
 }
