@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package newCoolGame;
+package Menu;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -16,7 +16,7 @@ import javax.swing.JPanel;
  * @author Bradley
  */
 public class MenuTemplate extends JPanel{
-    private String titleName = "Adventure Game";
+    private String titleText = "";
     int width = 960;
     int height = 540;
     
@@ -32,12 +32,16 @@ public class MenuTemplate extends JPanel{
         
         g.setColor(Color.GREEN);
         g.setFont(new Font("Arial", Font.PLAIN, 30));
-        this.getMetrics(g, titleName);
-        g.drawString(titleName, (this.width-(int)bounds.getWidth())/2, 100); 
+        this.getMetrics(g, titleText);
+        g.drawString(titleText, (this.width-(int)bounds.getWidth())/2, 100); 
     }
     
     public void getMetrics(Graphics g, String boundText) {
         fm = g.getFontMetrics();
         bounds = fm.getStringBounds(boundText, g);
+    }
+    
+    public void setTitleText(String title){
+        this.titleText = title;
     }
 }

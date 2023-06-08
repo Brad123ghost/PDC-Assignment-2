@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package newCoolGame;
+package Menu;
 
 import java.awt.Color;
 import java.awt.FontMetrics;
@@ -23,7 +23,10 @@ public class MenuPanel extends MenuTemplate{
     private JButton exitGameBtn;
     private String titleName;
  
+    
+ 
     public MenuPanel() {
+        super.setTitleText("Adventure Game");
         this.setLayout(null);
         this.titleName = "Adventure Game";
         newGameBtn = new JButton("New Game");
