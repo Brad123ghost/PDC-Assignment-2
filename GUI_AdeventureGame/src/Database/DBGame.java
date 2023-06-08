@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package newCoolGame;
+package Database;
 
 import java.io.File;
 import java.sql.Connection;
@@ -70,7 +70,7 @@ public class DBGame {
     private void createArmourTable() {
         this.dropTable("ARMOUR");
         String createQuery = "CREATE TABLE ARMOUR ("
-                + "WeaponID INT,"
+                + "ArmourID INT,"
                 + "Name VARCHAR(255),"
                 + "Stat INT,"
                 + "Price INT)";

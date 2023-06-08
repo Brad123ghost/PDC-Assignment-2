@@ -4,17 +4,18 @@
  */
 package newCoolGame;
 
-import Database.DBGame;
-
 /**
  *
  * @author Bradley
  */
-public class GameApplication {
-    public static void main(String[] args) {
-        DBGame gameDB = new DBGame();
-        gameDB.dbSetUp();
-        
-        GameFrame game = new GameFrame();
+public class Weapon extends Node{
+    public Weapon(int id, String name, int stat, int price) {
+        super(id, name, stat, price);
     }
+    
+    @Override
+    public String toString() {
+        return this.getName();
+    }
+    
 }

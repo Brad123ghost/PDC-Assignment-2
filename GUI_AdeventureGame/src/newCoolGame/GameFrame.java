@@ -11,6 +11,7 @@ import Menu.MenuPanel;
 import Menu.NewGamePanel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -22,13 +23,16 @@ import javax.swing.JPanel;
 public class GameFrame{
     private JFrame frame;
     
+    // Game Memory
+    GameMemory gMemory = new GameMemory();
+    
     // Menu Panel/Controller
     private MenuController menuModel;
     private MenuPanel menuPanel;
     private NewGamePanel newGamePanel;
     
     // Game Panel/Controller
-    private GameController gameMode;
+    private GameController gameModel;
     private GamePanel gamePanel;
 //    private
     
@@ -58,25 +62,32 @@ public class GameFrame{
         this.newGamePanel = new NewGamePanel();
         this.menuModel = new MenuController(this, menuPanel, newGamePanel);
         
-//        this.menuJPanel = menuPanel.getPanel();
-        
+        this.gamePanel = new GamePanel();
+//        this.gameModel = new GameController();
         this.frame.add(menuPanel);
-//this.frame.add(newGamePanel);
         this.frame.setVisible(true);
+        
+        gMemory.queryShopUpgrades();
+
     }
     
     public void checkState() {
         switch(mState) {
             case MAIN_MENU:
                 this.frame.remove(newGamePanel);
+                this.frame.remove(gamePanel);
                 this.frame.add(menuPanel);
               
                 break;
             case NEW_GAME:
                 this.frame.remove(menuPanel);
+                this.frame.remove(gamePanel);
                 this.frame.add(newGamePanel);
                 break;
             case GAME_START:
+                this.frame.remove(menuPanel);
+                this.frame.remove(newGamePanel);
+                this.frame.add(gamePanel);
                 break;
             case EXIT_GAME:
 //                int x = JOptionPane.showConfirmDialog(null, "Do you really want to quit?", "Close", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
