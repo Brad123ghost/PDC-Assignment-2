@@ -62,6 +62,7 @@ public class GameFrame{
             case MAIN_MENU:
                 this.frame.remove(newGamePanel);
                 this.frame.add(menuPanel);
+              
                 break;
             case NEW_GAME:
                 this.frame.remove(menuPanel);
