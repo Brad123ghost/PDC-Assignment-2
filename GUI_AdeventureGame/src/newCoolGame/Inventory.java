@@ -11,10 +11,18 @@ import java.util.ArrayList;
  * @author Bradley
  */
 public class Inventory {
-    private Weapon currentWeapon;
-    private Armour currentArmour;
+    static Inventory invInstance;
+    private static Weapon currentWeapon;
+    private static Armour currentArmour;
+    private Inventory(){};
     
-   
+    public static synchronized Inventory getInvInstance() {
+        if(invInstance == null) {
+            invInstance = new Inventory();
+        }
+        return invInstance;
+    }
+    
     
     public void setCurrentWeapon(Weapon weapon) {
         currentWeapon = weapon;
