@@ -32,7 +32,7 @@ public class GameFrame{
     private NewGamePanel newGamePanel;
     
     // Game Panel/Controller
-    private GameController gameMode;
+    private GameController gameModel;
     private GamePanel gamePanel;
 //    private
     
@@ -62,37 +62,32 @@ public class GameFrame{
         this.newGamePanel = new NewGamePanel();
         this.menuModel = new MenuController(this, menuPanel, newGamePanel);
         
-//        this.menuJPanel = menuPanel.getPanel();
-        
+        this.gamePanel = new GamePanel();
+//        this.gameModel = new GameController();
         this.frame.add(menuPanel);
-//this.frame.add(newGamePanel);
         this.frame.setVisible(true);
         
         gMemory.queryShopUpgrades();
-        gMemory.queryEnemies();
-        for(Node n : gMemory.test) {
-            System.out.println(n);
-        }
-        for(Node n : gMemory.test2) {
-            System.out.println(n);
-        }
-        for(Map.Entry<String, Enemy> m : gMemory.enemies.entrySet()) {
-            System.out.println(m);
-        }
+
     }
     
     public void checkState() {
         switch(mState) {
             case MAIN_MENU:
                 this.frame.remove(newGamePanel);
+                this.frame.remove(gamePanel);
                 this.frame.add(menuPanel);
               
                 break;
             case NEW_GAME:
                 this.frame.remove(menuPanel);
+                this.frame.remove(gamePanel);
                 this.frame.add(newGamePanel);
                 break;
             case GAME_START:
+                this.frame.remove(menuPanel);
+                this.frame.remove(newGamePanel);
+                this.frame.add(gamePanel);
                 break;
             case EXIT_GAME:
 //                int x = JOptionPane.showConfirmDialog(null, "Do you really want to quit?", "Close", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
