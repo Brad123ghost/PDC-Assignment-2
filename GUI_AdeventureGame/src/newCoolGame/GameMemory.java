@@ -5,6 +5,7 @@
 package newCoolGame;
 
 import Database.DBManager;
+import Game.StoryNode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,24 +22,21 @@ public class GameMemory {
     private Shop shop;
     private DBManager dbManager;
     private GameMemory gameMemInstance;
-     HashMap<String, Enemy> enemies;
-
-    ArrayList<Node> test;
-    ArrayList<Node> test2;
+    private HashMap<String, Enemy> enemies;
+    
     
     public GameMemory() {
-        inventory = new Inventory();
+        inventory = Inventory.getInvInstance();
         shop = new Shop();
         dbManager = DBManager.getDBInstance();
         enemies = new HashMap<>();
+
     }
     
     public void queryShopUpgrades() {
         this.queryWeaponUpgrades();
         this.queryArmourUpgrades();
-        
-        test = shop.getWeapUpgrades();
-        test2 = shop.getArmourUpgrades();
+
     }
     
     private void queryWeaponUpgrades() {
