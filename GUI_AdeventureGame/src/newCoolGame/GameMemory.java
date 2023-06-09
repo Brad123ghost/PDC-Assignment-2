@@ -18,13 +18,16 @@ import java.util.logging.Logger;
  * @author Bradley
  */
 public class GameMemory {
-    private Player player;
-    private Inventory inventory;
-    private Shop shop;
-    private DBManager dbManager;
-    private GameMemory gameMemInstance;
-    private HashMap<String, Enemy> enemies;
+    
+    Player player;
+    Inventory inventory;
+    Shop shop;
+    DBManager dbManager;
+    GameMemory gameMemInstance;
+    HashMap<String, Enemy> enemies;
     private static GameMemory gameMemoryInstance;
+    ArrayList<String> userList;
+    SaveLoadManager slManager;
     
     private GameMemory(){}
     
@@ -42,7 +45,12 @@ public class GameMemory {
         gameMemoryInstance.shop = Shop.getShopInstance();
         gameMemoryInstance.dbManager = DBManager.getDBInstance();
         gameMemoryInstance.enemies = new HashMap<>();
-        System.out.println(gameMemoryInstance);
+        gameMemoryInstance.userList = new ArrayList<>();
+        gameMemoryInstance.slManager = new SaveLoadManager();
+    }
+    
+    public void resetMem() {
+        gameMemoryInstance = new GameMemory();
     }
     
     public void queryShopUpgrades() {
