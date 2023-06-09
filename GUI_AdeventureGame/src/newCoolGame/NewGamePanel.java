@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Menu;
+package newCoolGame;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -39,7 +39,6 @@ public class NewGamePanel extends MenuTemplate{
         startGameBtn.setBounds(this.width/2-75, 350, 150, 50); 
         startGameBtn.setContentAreaFilled(true);
         startGameBtn.setFocusPainted(false);
-        startGameBtn.setOpaque(true);
         startGameBtn.setBackground(Color.orange);
         this.add(startGameBtn);
     }

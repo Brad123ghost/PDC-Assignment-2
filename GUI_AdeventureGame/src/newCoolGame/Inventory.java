@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 public class Inventory {
     static Inventory invInstance;
-    private static Weapon currentWeapon;
-    private static Armour currentArmour;
+    private Weapon currentWeapon;
+    private Armour currentArmour;
     private Inventory(){};
     
     public static synchronized Inventory getInvInstance() {
@@ -27,7 +27,15 @@ public class Inventory {
     public void setCurrentWeapon(Weapon weapon) {
         currentWeapon = weapon;
     }
+    public Weapon getCurrentWeapon() {
+        return this.currentWeapon;
+    }
+    
     public void setCurrenArmour(Armour armour) {
         currentArmour = armour;
     }
+    public Armour getCurrentArmour() {
+        return this.currentArmour;
+    }
+    
 }

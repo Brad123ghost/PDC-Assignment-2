@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Menu;
+package newCoolGame;
 
 import newCoolGame.State;
 import java.awt.event.ActionEvent;
@@ -16,12 +16,14 @@ import newCoolGame.GameFrame;
  * @author Bradley
  */
 public class MenuController {
+    GameMemory gMemory;
     GameFrame currentGFrame;
     
     MenuPanel mPanel;
     NewGamePanel ngPanel;
     
     public MenuController(GameFrame gFrame, MenuPanel mPanel, NewGamePanel ngPanel) {
+        this.gMemory = GameMemory.getGMemInstance();
         this.currentGFrame = gFrame;
         this.mPanel = mPanel;
         this.ngPanel = ngPanel;
@@ -29,27 +31,28 @@ public class MenuController {
     }
     
     private void eventHandleNewGame() {
-        System.out.println("New Game");
+//        System.out.println("New Game");
         currentGFrame.setMenuState(State.NEW_GAME);
         currentGFrame.checkState();
     }
     private void eventHandleLoadGame() {
-        System.out.println("Load Game");
+//        System.out.println("Load Game");
     }
     private void eventHandleExitGame() {
-        System.out.println("Exit Game");
+//        System.out.println("Exit Game");
         currentGFrame.setMenuState(State.EXIT_GAME);
         currentGFrame.checkState();
     }
     
     private void eventHandleStartGame() {
-        System.out.println("Start Game");
+//        System.out.println("Start Game");
         JTextField nameField = ngPanel.getNameField();
         String name = nameField.getText();
         System.out.println(name);
         if(!checkValidString(name)) {
             ngPanel.setErrorMsg();
         } else {
+            gMemory.createNewPlayer(name);
             currentGFrame.setMenuState(State.GAME_START);
             currentGFrame.checkState();
         }

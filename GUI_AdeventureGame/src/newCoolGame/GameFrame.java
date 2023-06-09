@@ -4,11 +4,6 @@
  */
 package newCoolGame;
 
-import Game.GameController;
-import Game.GamePanel;
-import Menu.MenuController;
-import Menu.MenuPanel;
-import Menu.NewGamePanel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Map;
@@ -24,16 +19,19 @@ public class GameFrame{
     private JFrame frame;
     
     // Game Memory
-    GameMemory gMemory = new GameMemory();
+    GameMemory gMemory;
+    StoryLine story;
     
     // Menu Panel/Controller
-    private MenuController menuModel;
+    private MenuController menuController;
     private MenuPanel menuPanel;
     private NewGamePanel newGamePanel;
     
     // Game Panel/Controller
-    private GameController gameModel;
+    private GameController gameController;
     private GamePanel gamePanel;
+    private AttackPanel attackPanel;
+    private AttackController attackController;
 //    private
     
 //    private JPanel menuJPanel;
@@ -42,6 +40,8 @@ public class GameFrame{
     int height = 540;
     
     public GameFrame() {
+        gMemory = GameMemory.getGMemInstance();
+        gMemory.gMemSetup();
         this.frame = new JFrame("Adventure Game");
         this.frame.setSize(width, height);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,14 +60,19 @@ public class GameFrame{
         
         this.menuPanel = new MenuPanel();
         this.newGamePanel = new NewGamePanel();
-        this.menuModel = new MenuController(this, menuPanel, newGamePanel);
+        this.menuController = new MenuController(this, menuPanel, newGamePanel);
         
+        gMemory.queryShopUpgrades();
+        gMemory.queryEnemies();
+        this.story = StoryLine.getStoryLineInstance();
         this.gamePanel = new GamePanel();
-//        this.gameModel = new GameController();
+        this.gameController = new GameController(this, gamePanel);
+        this.attackPanel = new AttackPanel();
+        this.attackController = new AttackController(this, attackPanel);
         this.frame.add(menuPanel);
         this.frame.setVisible(true);
         
-        gMemory.queryShopUpgrades();
+        
 
     }
     
@@ -76,17 +81,40 @@ public class GameFrame{
             case MAIN_MENU:
                 this.frame.remove(newGamePanel);
                 this.frame.remove(gamePanel);
+                this.frame.remove(attackPanel);
                 this.frame.add(menuPanel);
               
                 break;
             case NEW_GAME:
                 this.frame.remove(menuPanel);
                 this.frame.remove(gamePanel);
+                this.frame.remove(attackPanel);
                 this.frame.add(newGamePanel);
                 break;
             case GAME_START:
+                this.gamePanel.updateStats();
+                this.gamePanel.displayCurrentStory("beachStart");
+                this.gameController.addGamePanelListeners();
                 this.frame.remove(menuPanel);
                 this.frame.remove(newGamePanel);
+                this.frame.remove(attackPanel);
+                this.frame.add(gamePanel);
+                break;
+            case ATTACK:
+                this.attackController.addAttackPanelListeners();
+                this.attackController.startEncounter();
+                this.attackPanel.updateStats();
+                this.frame.remove(menuPanel);
+                this.frame.remove(gamePanel);
+                this.frame.remove(gamePanel);
+                this.frame.add(attackPanel);
+                break;
+            case GAME_RESUME:
+                this.gamePanel.clear();
+                this.gamePanel.displayCurrentStory(story.currentStoryNode);
+                this.frame.remove(menuPanel);
+                this.frame.remove(newGamePanel);
+                this.frame.remove(attackPanel);
                 this.frame.add(gamePanel);
                 break;
             case EXIT_GAME:

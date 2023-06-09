@@ -13,5 +13,7 @@ public enum State {
     NEW_GAME,
     LOAD_GAME,
     GAME_START,
+    ATTACK,
+    GAME_RESUME,
     EXIT_GAME
 }

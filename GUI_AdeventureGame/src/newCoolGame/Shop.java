@@ -13,11 +13,18 @@ import java.util.ArrayList;
 public class Shop {
     private ArrayList<Node> weaponUpgrades;
     private ArrayList<Node> armourUpgrades;
+    private Shop() {};
+    static Shop shopInstance;
     
-    public Shop() {
-        weaponUpgrades = new ArrayList<>();
-        armourUpgrades = new ArrayList<>();
+    public static synchronized Shop getShopInstance() {
+        if(shopInstance == null) {
+            shopInstance = new Shop();
+            shopInstance.weaponUpgrades = new ArrayList<>();
+            shopInstance.armourUpgrades = new ArrayList<>();
+        }
+        return shopInstance;
     }
+    
     
     public void addWeaponUpgrade(Weapon weapon) {
         weaponUpgrades.add(weapon);
@@ -26,11 +33,19 @@ public class Shop {
         armourUpgrades.add(armour);
     }
     
-    public ArrayList<Node> getWeapUpgrades() {
+    public ArrayList<Node> getWeapUpgradesList() {
         return this.weaponUpgrades;
     }
     
-    public ArrayList<Node> getArmourUpgrades() {
+    public ArrayList<Node> getArmourUpgradesList() {
         return this.armourUpgrades;
+    }
+    
+    public Node getWeapIndex(int index) {
+        return weaponUpgrades.get(index);
+    }
+    
+    public Node getArmourIndex(int index) {
+        return armourUpgrades.get(index);
     }
 }
