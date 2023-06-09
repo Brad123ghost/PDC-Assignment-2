@@ -13,17 +13,21 @@ import java.util.ArrayList;
 public class StoryNode {
     String name;
     ArrayList<String> text;
-    String optionOne;
-    String optionTwo;
-    String oneNextChoice;
-    String twoNextChoice;
+    String leftNodeName;
+    String rightNodeName;
+    String continuedNextName;
+    String leftChoiceText;
+    String rightChoiceText;
+    Enemy currentEnemy;
     
-    public StoryNode(String name, ArrayList<String> text, String optionOne, String optionTwo, String oneNextChoice, String twoNextChoice) {
+    public StoryNode(String name, ArrayList<String> text, String optionOne, String optionTwo, String continuedNextName, String oneNextChoice, String twoNextChoice) {
         this.name = name;
         this.text = text;
-        this.optionOne = optionOne;
-        this.optionTwo = optionTwo;
-        this.oneNextChoice = oneNextChoice;
-        this.twoNextChoice = twoNextChoice;
+        this.leftNodeName = optionOne;
+        this.rightNodeName = optionTwo;
+        this.continuedNextName = continuedNextName;
+        this.leftChoiceText = oneNextChoice;
+        this.rightChoiceText = twoNextChoice;
     }
+    
 }
