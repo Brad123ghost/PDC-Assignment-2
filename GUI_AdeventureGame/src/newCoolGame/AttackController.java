@@ -47,7 +47,7 @@ public class AttackController implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         System.out.println(e.getActionCommand());
-        while(this.storyLine.currentEnemy.getHealth() > 0 && (this.player.getHealth() > 0)) {
+        if(this.storyLine.currentEnemy.getHealth() > 0 && (this.player.getHealth() > 0)) {
             if(e.getActionCommand().equals("Roll Dice")) {
                 this.playerAttack();
             } else if(e.getActionCommand().equals("Continue")){
@@ -85,6 +85,7 @@ public class AttackController implements ActionListener{
         StoryNode currentNode = storyLine.storyNodes.get(nodeName);
         storyLine.currentEnemy = currentNode.currentEnemy;
         this.aPanel.displayEncounter();
+        System.out.println("Enemy Health: " + storyLine.currentEnemy.getHealth());
 //        this.currentEnemy = aPanel.enemy;
     }
     
@@ -93,10 +94,15 @@ public class AttackController implements ActionListener{
         double multiplier = diceRollResult * 0.1 + 1;
         
         double dmgToDeal = this.player.inventory.getCurrentWeapon().getStat() * multiplier;
-        
+        System.out.println("Multiplier: " + multiplier);
+        System.out.println("Damage to Deal: " + dmgToDeal );
+        System.out.println("Enemy Health: " + storyLine.currentEnemy.getHealth());
+       
         if(dmgToDeal > storyLine.currentEnemy.getHealth()) {
+            System.out.println("One shot");
             storyLine.currentEnemy.setHealth(0);
         } else {
+            System.out.println("ur gay");
             storyLine.currentEnemy.setHealth(storyLine.currentEnemy.getHealth()-dmgToDeal);
         }
         this.aPanel.getStatusLabel().setText("Your damage was multiplied by x" + multiplier + " and you dealt " + dmgToDeal + " dmg");
@@ -118,6 +124,7 @@ public class AttackController implements ActionListener{
             this.player.setHealth(this.player.getHealth()-dmgToDeal);
         }
         
+        this.aPanel.getStatusLabel().setText("Incoming damage was mitigated by " + dmgMit +" dmg. You took " + dmgToDeal + " dmg");
         this.aPanel.updateStats();
         this.aPanel.playerTurn = true;
         this.aPanel.displayEncounter();
