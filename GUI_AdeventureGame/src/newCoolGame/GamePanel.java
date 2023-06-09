@@ -22,6 +22,7 @@ public class GamePanel extends JPanel{
 //    JButton option2;
     int width = 960;
     int height = 540;
+    JButton pauseScreenBtn;
     JLabel status;
     JLabel displayHealth;
     JLabel displayCoins;
@@ -39,6 +40,14 @@ public class GamePanel extends JPanel{
         player = Player.getPlayerInstance();
         inventory = Inventory.getInvInstance();
         story = StoryLine.getStoryLineInstance();
+        
+        pauseScreenBtn = new JButton("Pause");
+        pauseScreenBtn.setBounds(10, 10, 80, 30);
+        pauseScreenBtn.setContentAreaFilled(true);
+        pauseScreenBtn.setFocusPainted(false);
+        pauseScreenBtn.setFont(new Font("Arial", Font.PLAIN, 12));
+        pauseScreenBtn.setBackground(Color.white);
+        this.add(pauseScreenBtn);
         
         status = new JLabel();
         status.setBounds(100, 290, 800, 30);
@@ -91,7 +100,7 @@ public class GamePanel extends JPanel{
         StoryNode currentSNode = story.storyNodes.get(nodeName);
 //        System.out.println("Node Name: " + currentSNode.name);
         story.currentStoryNode = currentSNode.name;
-        
+        player.setProgress(currentSNode.name);
         displayText = new ArrayList<>();
      
         for(int i = 0; i < currentSNode.text.size(); i++) {
@@ -141,6 +150,10 @@ public class GamePanel extends JPanel{
     public void update() {
         this.validate();
         this.repaint();
+    }
+    
+    public JButton getPauseScreenBtn() {
+        return this.pauseScreenBtn;
     }
     
     public JButton getOptionOneBtn() {
