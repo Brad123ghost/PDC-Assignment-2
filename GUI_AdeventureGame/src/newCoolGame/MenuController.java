@@ -21,13 +21,20 @@ public class MenuController {
     
     MenuPanel mPanel;
     NewGamePanel ngPanel;
+    LoadPanel lPanel;
+    PausedPanel pPanel;
     
-    public MenuController(GameFrame gFrame, MenuPanel mPanel, NewGamePanel ngPanel) {
+    SaveLoadManager saveLoadManager;
+    
+    public MenuController(GameFrame gFrame, MenuPanel mPanel, NewGamePanel ngPanel, LoadPanel loadPanel, PausedPanel pPanel) {
         this.gMemory = GameMemory.getGMemInstance();
         this.currentGFrame = gFrame;
         this.mPanel = mPanel;
         this.ngPanel = ngPanel;
+        this.lPanel = lPanel;
+        this.pPanel = pPanel;
         this.eventListener();
+        this.saveLoadManager = new SaveLoadManager();
     }
     
     private void eventHandleNewGame() {
@@ -37,6 +44,10 @@ public class MenuController {
     }
     private void eventHandleLoadGame() {
 //        System.out.println("Load Game");
+//        gMemory.slManager.getPlayerList();
+//        System.out.println(gMemory.userList.get(0));
+        currentGFrame.setMenuState(State.LOAD_GAME);
+        currentGFrame.checkState();
     }
     private void eventHandleExitGame() {
 //        System.out.println("Exit Game");
@@ -55,8 +66,18 @@ public class MenuController {
             gMemory.createNewPlayer(name);
             currentGFrame.setMenuState(State.GAME_START);
             currentGFrame.checkState();
-        }
-        
+        } 
+    }
+    private void eventHandleResumeGame() {
+        currentGFrame.setMenuState(State.GAME_RESUME);
+        currentGFrame.checkState();
+    }
+    
+    private void eventHandleSaveExitGame() {
+//        saveLoadManager.savePlayerData();
+        gMemory.slManager.savePlayerData();
+        currentGFrame.setMenuState(State.EXIT_GAME);
+        currentGFrame.checkState();
     }
     
     private void eventListener() {
@@ -83,6 +104,20 @@ public class MenuController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 eventHandleStartGame();
+            }
+        });
+        
+        pPanel.getRGBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eventHandleResumeGame();
+            }
+        });
+        
+        pPanel.getSEBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eventHandleSaveExitGame();
             }
         });
     }
