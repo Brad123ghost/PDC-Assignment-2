@@ -30,7 +30,18 @@ public class GameController implements ActionListener{
         
     }
     
+    public void eventHandlePause() {
+        currentGFrame.setMenuState(State.PAUSE_GAME);
+        currentGFrame.checkState();
+    }
+    
     public void addGamePanelListeners() {
+        gPanel.getPauseScreenBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eventHandlePause();
+            }
+        });
         if(gPanel.getOptionOneBtn() != null) {
             gPanel.getOptionOneBtn().addActionListener(this);
         }
@@ -41,11 +52,7 @@ public class GameController implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-//        System.out.println(e.getSource());
-//        System.out.println(e.getID());
         StoryNode currentNode = storyLine.storyNodes.get(storyLine.currentStoryNode);
-//        System.out.println(e.getActionCommand());
-//        System.out.println(e.toString());
         if(e.getActionCommand().equals("Fight It")) {
             storyLine.currentStoryNode = currentNode.leftNodeName;
             String nodeName = storyLine.currentStoryNode;
@@ -60,9 +67,7 @@ public class GameController implements ActionListener{
             System.out.println(e.getActionCommand());
             this.riverCoinFlip();
 
-            this.gPanel.getOptionTwoBtn().setText("Continue");
-
-            
+            this.gPanel.getOptionTwoBtn().setText("Continue");  
         }
         else if(e.getActionCommand().equals("Continue") && !currentNode.continuedNextName.equals("")) {
             String nodeName = storyLine.currentStoryNode;
@@ -71,11 +76,8 @@ public class GameController implements ActionListener{
             this.gPanel.displayCurrentStory(currentNode.continuedNextName);
         }
         else {
-            
-//            StoryNode currentNode = storyLine.storyNodes.get(storyLine.currentStoryNode);
             String leftChoice = currentNode.leftNodeName;
             String rightChoice = currentNode.rightNodeName;
-//            System.out.println(storyLine.currentStoryNode);
             gPanel.clear();
             if(e.getActionCommand().equals(currentNode.leftChoiceText)) {
                 gPanel.displayCurrentStory(leftChoice);
