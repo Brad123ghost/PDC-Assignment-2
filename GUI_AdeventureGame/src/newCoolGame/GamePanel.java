@@ -22,6 +22,7 @@ public class GamePanel extends JPanel{
 //    JButton option2;
     int width = 960;
     int height = 540;
+    JLabel status;
     JLabel displayHealth;
     JLabel displayCoins;
     JLabel displayWeaponName;
@@ -39,6 +40,12 @@ public class GamePanel extends JPanel{
         inventory = Inventory.getInvInstance();
         story = StoryLine.getStoryLineInstance();
         
+        status = new JLabel();
+        status.setBounds(100, 290, 800, 30);
+        status.setForeground(Color.green);
+        status.setFont(new Font("Arial", Font.PLAIN, 18));
+        this.add(status); 
+        
         this.setLayout(null);
         displayHealth = new JLabel();
         displayHealth.setBounds(10, 470, 120, 30);
@@ -47,7 +54,7 @@ public class GamePanel extends JPanel{
         this.add(displayHealth);
         
         displayCoins = new JLabel();
-        displayCoins.setBounds(130, 470, 80, 30);
+        displayCoins.setBounds(130, 470, 100, 30);
         displayCoins.setForeground(Color.white);
         displayCoins.setFont(new Font("Arial", Font.PLAIN, 18));
         this.add(displayCoins);
@@ -80,27 +87,28 @@ public class GamePanel extends JPanel{
     }
     
     public void displayCurrentStory(String nodeName) {
+        
         StoryNode currentSNode = story.storyNodes.get(nodeName);
-        System.out.println("Node Name: " + currentSNode.name);
-        story.currentStory = currentSNode.name;
+//        System.out.println("Node Name: " + currentSNode.name);
+        story.currentStoryNode = currentSNode.name;
         
         displayText = new ArrayList<>();
+     
         for(int i = 0; i < currentSNode.text.size(); i++) {
-            System.out.println(currentSNode.text.get(i));
             displayText.add(new JLabel(currentSNode.text.get(i)));
             displayText.get(i).setBounds(100, 130+30*i, 800, 30);
             displayText.get(i).setForeground(Color.white);
             displayText.get(i).setFont(new Font("Arial", Font.PLAIN, 18));
             this.add(displayText.get(i));
         }
-        if(!currentSNode.optionOne.equals("")){
-            option1Btn.setText(currentSNode.oneNextChoice);
+        if(!currentSNode.leftNodeName.equals("")){
+            option1Btn.setText(currentSNode.leftChoiceText);
             this.add(option1Btn);
         } else {
             this.remove(option1Btn);
         }
-        if(!currentSNode.optionTwo.equals("")){
-            option2Btn.setText(currentSNode.twoNextChoice);
+        if(!currentSNode.rightNodeName.equals("")){
+            option2Btn.setText(currentSNode.rightChoiceText);
             this.add(option2Btn);
         } else {
             this.remove(option1Btn);
@@ -127,6 +135,7 @@ public class GamePanel extends JPanel{
         for(JLabel label : displayText) {
             this.remove(label);
         }
+        this.status.setText("");
     }
     
     public void update() {
@@ -140,6 +149,10 @@ public class GamePanel extends JPanel{
     
     public JButton getOptionTwoBtn() {
         return this.option2Btn;
+    }
+    
+    public JLabel getStatus() {
+        return this.status;
     }
     
     @Override
