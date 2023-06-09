@@ -15,5 +15,6 @@ public enum State {
     GAME_START,
     ATTACK,
     GAME_RESUME,
+    PAUSE_GAME,
     EXIT_GAME
 }
