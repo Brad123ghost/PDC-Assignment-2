@@ -56,7 +56,7 @@ public class MenuPanel extends MenuTemplate{
         exitGameBtn.setFocusPainted(false);
         exitGameBtn.setBackground(Color.orange);
         this.add(exitGameBtn);
-        System.out.println("Menu View Created");
+//        System.out.println("Menu View Created");
     }
     
     public JButton getNGBtn() {
