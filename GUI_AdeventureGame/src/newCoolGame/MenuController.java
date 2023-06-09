@@ -31,21 +31,21 @@ public class MenuController {
     }
     
     private void eventHandleNewGame() {
-        System.out.println("New Game");
+//        System.out.println("New Game");
         currentGFrame.setMenuState(State.NEW_GAME);
         currentGFrame.checkState();
     }
     private void eventHandleLoadGame() {
-        System.out.println("Load Game");
+//        System.out.println("Load Game");
     }
     private void eventHandleExitGame() {
-        System.out.println("Exit Game");
+//        System.out.println("Exit Game");
         currentGFrame.setMenuState(State.EXIT_GAME);
         currentGFrame.checkState();
     }
     
     private void eventHandleStartGame() {
-        System.out.println("Start Game");
+//        System.out.println("Start Game");
         JTextField nameField = ngPanel.getNameField();
         String name = nameField.getText();
         System.out.println(name);
