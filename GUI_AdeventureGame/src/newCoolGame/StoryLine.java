@@ -12,11 +12,11 @@ import java.util.HashMap;
  * @author Bradley
  */
 public class StoryLine {
-     HashMap<String, StoryNode> storyNodes;
-     ArrayList<String> text;
-     String currentStoryNode;
-     Enemy currentEnemy;
-     GameMemory gMem;
+    HashMap<String, StoryNode> storyNodes;
+    ArrayList<String> text;
+    String currentStoryNode;
+    Enemy currentEnemy;
+    GameMemory gMem;
     private StoryLine(){};
     public static StoryLine storyLineInstance;
     
@@ -42,9 +42,22 @@ public class StoryLine {
         this.createForestRiverCross();
         this.createForestRiverAnotherWay();
         this.createForestRustling();
-        
-        
+        this.createForestRustlingInvestigate();
+        this.createForestEncounter();
+        this.createForestSneakAway();
+        this.createForestRustlingIgnore();
+        this.createForestCoins();
+        this.createForestBridge();
         this.createForestRiverCrossed();
+        this.createPathEncounterOne();
+        this.createPathContinue();
+        this.createPathGlimmer();
+        this.createPathCoins();
+        this.createPathEncounterTwo();
+        this.createTownStart();
+        this.createTownContinue();
+        this.createTownLeave();
+        this.createActOneEnd();
     }
     
     public void setNodeEnemy(String name, StoryNode node) {
@@ -200,7 +213,7 @@ public class StoryLine {
         storyNodes.put(nodeName, newNode);
     }
     
-     public void createForestRustling() {
+    public void createForestRustling() {
         text = new ArrayList<>();
         String line1 = "While walking along the river, you hear some rustling in the distance.\n";
         String line2 = "Could it be another person?\n";
@@ -217,6 +230,116 @@ public class StoryLine {
         String rightChoiceText = "Ignore";
         
         StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
+        storyNodes.put(nodeName, newNode);
+    }
+    
+    public void createForestRustlingInvestigate() {
+        text = new ArrayList<>();
+        String line1 = "You let curiosity get the best of you and you quitely walk over to investigate.\n";
+        String line2 = "You reach the bush where the sound is comming from and decide to peek over.\n";
+        String line3 = "It is not human, infact it's a Zombie";
+        text.add(line1);
+        text.add(line2);
+        text.add(line3);
+        
+        String nodeName = "forestRustlingInvestigate";
+        String leftNodeName = "forestEncounter";
+        String rightNodeName = "forestSneakAway";
+        String continuedNextName = "";
+        String leftChoiceText = "Attack It";
+        String rightChoiceText = "Sneak Away";
+        
+        StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
+        
+        storyNodes.put(nodeName, newNode);
+    }
+    
+    public void createForestEncounter() {
+        text = new ArrayList<>();
+        String line1 = "You Decided to attack the Zombie";
+        text.add(line1);
+        
+        String nodeName = "forestEncounter";
+        String leftNodeName = "";
+        String rightNodeName = "fight";
+        String continuedNextName = "forestBridge";
+        String leftChoiceText = "";
+        String rightChoiceText = "Continue";
+        
+        StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
+        this.setNodeEnemy("Zombie", newNode);
+        storyNodes.put(nodeName, newNode);
+    }
+    
+    public void createForestSneakAway() {
+        text = new ArrayList<>();
+        String line1 = "You let curiosity get the better of you but in the end you snuck away";
+        text.add(line1);
+        
+        String nodeName = "forestSneakAway";
+        String leftNodeName = "";
+        String rightNodeName = "forestCoins";
+        String continuedNextName = "";
+        String leftChoiceText = "";
+        String rightChoiceText = "Continue";
+        
+        StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
+
+        storyNodes.put(nodeName, newNode);
+    }
+    
+    public void createForestRustlingIgnore() {
+        text = new ArrayList<>();
+        String line1 = "You did not let curiosity get the best of you and kept walking.";
+        text.add(line1);
+        
+        String nodeName = "forestRustlingIgnore";
+        String leftNodeName = "";
+        String rightNodeName = "forestCoins";
+        String continuedNextName = "";
+        String leftChoiceText = "";
+        String rightChoiceText = "Continue";
+        
+        StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
+
+        storyNodes.put(nodeName, newNode);
+    }
+    
+    public void createForestCoins() {
+        text = new ArrayList<>();
+        String line1 = "As you kept walkig you happen to stumble on a small pouch.";
+        String line2 = "You picked up the pouch, open it, and to your supprise you found 4 coins";
+        text.add(line1);
+        text.add(line2);
+        
+        String nodeName = "forestCoins";
+        String leftNodeName = "";
+        String rightNodeName = "forestBridge";
+        String continuedNextName = "";
+        String leftChoiceText = "";
+        String rightChoiceText = "Continue";
+        
+        StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
+
+        storyNodes.put(nodeName, newNode);
+    }
+    
+    public void createForestBridge() {
+        text = new ArrayList<>();
+        String line1 = "Looking ahead you see a sturdy bridge which spans the river's width.\n";
+        String line2 = "You excitedly run towards the bridge and cross it.";
+        text.add(line1);
+        text.add(line2);
+        
+        String nodeName = "forestBridge";
+        String leftNodeName = "";
+        String rightNodeName = "forestRiverCrossed";
+        String continuedNextName = "";
+        String leftChoiceText = "";
+        String rightChoiceText = "Continue";
+        
+        StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
+
         storyNodes.put(nodeName, newNode);
     }
     
@@ -240,5 +363,187 @@ public class StoryLine {
         this.setNodeEnemy("Skeleton", newNode);
         storyNodes.put(nodeName, newNode);
     }
-   // ADD RIVERCROSSED
+   
+    public void createPathEncounterOne() {
+        text = new ArrayList<>();
+        String line1 = "You are fighting the Skeleton";
+        text.add(line1);
+        
+        String nodeName = "forestEncounterOne";
+        String leftNodeName = "";
+        String rightNodeName = "fight";
+        String continuedNextName = "pathContinue";
+        String leftChoiceText = "";
+        String rightChoiceText = "Continue";
+        
+        StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
+        this.setNodeEnemy("Skeleton", newNode);
+        storyNodes.put(nodeName, newNode);
+    }
+    
+    public void createPathContinue() {
+        text = new ArrayList<>();
+        String line1 = "After a hard fought battle, you defeated the skeleton\n";
+        String line2 = "and you continue your journey following the path.";
+        text.add(line1);
+        text.add(line2);
+
+        
+        String nodeName = "pathContinue";
+        String leftNodeName = "";
+        String rightNodeName = "pathGlimmer";
+        String continuedNextName = "";
+        String leftChoiceText = "";
+        String rightChoiceText = "Continue";
+        
+        StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
+       
+        storyNodes.put(nodeName, newNode);
+    }
+    
+    public void createPathGlimmer() {
+        text = new ArrayList<>();
+        String line1 = "Whilst traveling on the path, you see in the distance what seems to";
+        String line2 = "be a small town, you tunnel vision onto the town, however, something";
+        String line3 = "else catches your attention.It seems to be glimmer. You wonder what it could be.";
+        text.add(line1);
+        text.add(line2);
+        text.add(line3);
+
+        
+        String nodeName = "pathGlimmer";
+        String leftNodeName = "pathCoins";
+        String rightNodeName = "pathEncounterTwo";
+        String continuedNextName = "";
+        String leftChoiceText = "Check it Out";
+        String rightChoiceText = "Follow Path";
+        
+        StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
+
+        storyNodes.put(nodeName, newNode);
+    }
+    
+    public void createPathCoins() {
+        text = new ArrayList<>();
+        String line1 = "You walked towards the glimmer which turns out to be 10 coins.";
+        String line2 = "You continue back on the path towards town.";
+        text.add(line1);
+        text.add(line2);
+        
+        String nodeName = "pathCoins";
+        String leftNodeName = "";
+        String rightNodeName = "pathEncounterTwo";
+        String continuedNextName = "";
+        String leftChoiceText = "";
+        String rightChoiceText = "Continue";
+        
+        StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
+
+        storyNodes.put(nodeName, newNode);
+    }
+    
+    public void createPathEncounterTwo() {
+        text = new ArrayList<>();
+        String line1 = "As you reach the town you notice an Armoured Crab guarding the entrance";
+        String line2 = "Lilly, a towns member shouts at you to defeat the Armoured Crab so that";
+        String line3 = "she can open the gates for you.";
+        text.add(line1);
+        text.add(line2);
+        text.add(line3);
+        
+        String nodeName = "pathEncounterTwo";
+        String leftNodeName = "";
+        String rightNodeName = "fight";
+        String continuedNextName = "pathContinue";
+        String leftChoiceText = "";
+        String rightChoiceText = "Continue";
+        
+        StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
+        this.setNodeEnemy("Armoured Crab", newNode);
+        storyNodes.put(nodeName, newNode);
+    }
+    
+    public void createTownStart() {
+        text = new ArrayList<>();
+        String line1 = "After defeating the Armoured Crab, Lilly hurriedly opens";
+        String line2 = "the gates and lets you in. She tells you, people that end up on";
+        String line3 = "this island has been exiled. In order to escape the island you have";
+        String line4 = "to venture to the top of the mountain and defeat Avatik";
+        text.add(line1);
+        text.add(line2);
+        text.add(line3);
+        text.add(line4);
+        
+        String nodeName = "townStart";
+        String leftNodeName = "";
+        String rightNodeName = "townContinue";
+        String continuedNextName = "";
+        String leftChoiceText = "";
+        String rightChoiceText = "Continue";
+        
+        StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
+
+        storyNodes.put(nodeName, newNode);
+    }
+    
+    public void createTownContinue() {
+        text = new ArrayList<>();
+        String line1 = "As you walk around exploring the town\n";
+        String line2 = "you find a merchant and he offers you some upgrades.";
+        text.add(line1);
+        text.add(line2);
+        
+        String nodeName = "townStart";
+        String leftNodeName = "";
+        String rightNodeName = "shop";
+        String continuedNextName = "townLeave";
+        String leftChoiceText = "";
+        String rightChoiceText = "Continue";
+        
+        StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
+
+        storyNodes.put(nodeName, newNode);
+    }
+    
+    public void createTownLeave() {
+        text = new ArrayList<>();
+        String line1 = "Just as you were leaving town to pursue Avatik, Caspiro";
+        String line2 = "approaches you and hands over a map to the moutain.";
+        String line3 = "You take the map and leave town.";
+        text.add(line1);
+        text.add(line2);
+        text.add(line3);
+        
+        String nodeName = "townLeave";
+        String leftNodeName = "";
+        String rightNodeName = "actOneEnd";
+        String continuedNextName = "";
+        String leftChoiceText = "";
+        String rightChoiceText = "Continue";
+        
+        StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
+
+        storyNodes.put(nodeName, newNode);
+    }
+    
+    public void createActOneEnd() {
+        text = new ArrayList<>();
+        String line1 = "Act One End!";
+        String line2 = "Thanks For Playing!";
+        String line3 = "To be Continued...";
+        text.add(line1);
+        text.add(line2);
+        text.add(line3);
+        
+        String nodeName = "actOneEnd";
+        String leftNodeName = "";
+        String rightNodeName = "end";
+        String continuedNextName = "";
+        String leftChoiceText = "";
+        String rightChoiceText = "Quit";
+        
+        StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
+
+        storyNodes.put(nodeName, newNode);
+    }
 }
