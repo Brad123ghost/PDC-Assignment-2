@@ -28,10 +28,11 @@ public class MenuController {
     LoadPanel lPanel;
     PausedPanel pPanel;
     GamePanel gPanel;
+    ShopPanel sPanel;
     
     SaveLoadManager saveLoadManager;
     
-    public MenuController(GameFrame gFrame, MenuPanel mPanel, NewGamePanel ngPanel, LoadPanel loadPanel, PausedPanel pPanel, LoadPanel lPanel, GamePanel gPanel) {
+    public MenuController(GameFrame gFrame, MenuPanel mPanel, NewGamePanel ngPanel, LoadPanel loadPanel, PausedPanel pPanel, LoadPanel lPanel, GamePanel gPanel, ShopPanel sPanel) {
         this.gMemory = GameMemory.getGMemInstance();
         this.currentGFrame = gFrame;
         this.mPanel = mPanel;
@@ -39,6 +40,7 @@ public class MenuController {
         this.lPanel = lPanel;
         this.pPanel = pPanel;
         this.gPanel = gPanel;
+        this.sPanel = sPanel;
         this.eventListener();
         this.saveLoadManager = new SaveLoadManager();
     }
