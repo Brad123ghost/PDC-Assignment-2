@@ -353,23 +353,23 @@ public class StoryLine {
         text.add(line3);
         
         String nodeName = "forestRiverCrossed";
-        String leftNodeName = "pathEncounterOne";
-        String rightNodeName = "";
+        String leftNodeName = "";
+        String rightNodeName = "pathEncounterOne";
         String continuedNextName = "";
-        String leftChoiceText = "Fight It";
-        String rightChoiceText = "";
+        String leftChoiceText = "";
+        String rightChoiceText = "Fight It";
         
         StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
-        this.setNodeEnemy("Skeleton", newNode);
+        
         storyNodes.put(nodeName, newNode);
     }
    
     public void createPathEncounterOne() {
         text = new ArrayList<>();
-        String line1 = "You are fighting the Skeleton";
+        String line1 = "You are about to fight the Skeleton";
         text.add(line1);
         
-        String nodeName = "forestEncounterOne";
+        String nodeName = "pathEncounterOne";
         String leftNodeName = "";
         String rightNodeName = "fight";
         String continuedNextName = "pathContinue";
@@ -387,8 +387,7 @@ public class StoryLine {
         String line2 = "and you continue your journey following the path.";
         text.add(line1);
         text.add(line2);
-
-        
+      
         String nodeName = "pathContinue";
         String leftNodeName = "";
         String rightNodeName = "pathGlimmer";
@@ -453,10 +452,10 @@ public class StoryLine {
         
         String nodeName = "pathEncounterTwo";
         String leftNodeName = "";
-        String rightNodeName = "fight";
-        String continuedNextName = "pathContinue";
+        String rightNodeName = "pathEncounterTwo";
+        String continuedNextName = "townStart";
         String leftChoiceText = "";
-        String rightChoiceText = "Continue";
+        String rightChoiceText = "Fight It";
         
         StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
         this.setNodeEnemy("Armoured Crab", newNode);
@@ -493,12 +492,12 @@ public class StoryLine {
         text.add(line1);
         text.add(line2);
         
-        String nodeName = "townStart";
+        String nodeName = "townContinue";
         String leftNodeName = "";
         String rightNodeName = "shop";
         String continuedNextName = "townLeave";
         String leftChoiceText = "";
-        String rightChoiceText = "Continue";
+        String rightChoiceText = "Shop";
         
         StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
 
@@ -540,7 +539,7 @@ public class StoryLine {
         String rightNodeName = "end";
         String continuedNextName = "";
         String leftChoiceText = "";
-        String rightChoiceText = "Quit";
+        String rightChoiceText = "Save & Quit";
         
         StoryNode newNode = new StoryNode(nodeName, text, leftNodeName, rightNodeName, continuedNextName, leftChoiceText, rightChoiceText);
 
