@@ -84,8 +84,8 @@ public class SaveLoadManager {
                 gMem.player.progress = rs.getString("progressID");
                 gMem.player.health = rs.getDouble("Health");
                 gMem.player.coins = rs.getInt("Coins");
-                gMem.player.inventory.setCurrentWeapon((Weapon)gMem.shop.getWeapIndex(rs.getInt("WeaponID")));
-                gMem.player.inventory.setCurrentArmour((Armour)gMem.shop.getArmourIndex(rs.getInt("ArmourID")));
+                gMem.player.inventory.setCurrentWeapon((Weapon)gMem.shop.getWeapIndex(rs.getInt("WeaponID") -1));
+                gMem.player.inventory.setCurrentArmour((Armour)gMem.shop.getArmourIndex(rs.getInt("ArmourID")-1));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SaveLoadManager.class.getName()).log(Level.SEVERE, null, ex);
