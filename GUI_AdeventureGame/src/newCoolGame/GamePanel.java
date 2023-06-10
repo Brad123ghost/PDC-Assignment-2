@@ -41,7 +41,7 @@ public class GamePanel extends JPanel{
         inventory = Inventory.getInvInstance();
         story = StoryLine.getStoryLineInstance();
         
-        pauseScreenBtn = new JButton("Pause");
+        pauseScreenBtn = new JButton("Options");
         pauseScreenBtn.setBounds(10, 10, 80, 30);
         pauseScreenBtn.setContentAreaFilled(true);
         pauseScreenBtn.setFocusPainted(false);
