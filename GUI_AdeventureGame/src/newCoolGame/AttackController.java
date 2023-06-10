@@ -21,8 +21,9 @@ public class AttackController implements ActionListener{
     Enemy currentEnemy;
     
     AttackPanel aPanel;
+    GamePanel gPanel;
     
-    public AttackController(GameFrame gFrame, AttackPanel aPanel) {
+    public AttackController(GameFrame gFrame, AttackPanel aPanel, GamePanel gPanel) {
         this.gMemory = GameMemory.getGMemInstance();
         this.currentGFrame = gFrame;
         this.aPanel = aPanel;
@@ -30,7 +31,7 @@ public class AttackController implements ActionListener{
         this.player = Player.getPlayerInstance();
         this.inventory = Inventory.getInvInstance();
         this.storyLine = StoryLine.getStoryLineInstance();
-        
+        this.addAttackPanelListeners();
         
     }
     
@@ -50,7 +51,8 @@ public class AttackController implements ActionListener{
         if(this.storyLine.currentEnemy.getHealth() > 0 && (this.player.getHealth() > 0)) {
             if(e.getActionCommand().equals("Roll Dice")) {
                 this.playerAttack();
-            } else if(e.getActionCommand().equals("Continue")){
+            }
+            if(e.getActionCommand().equals("Continue")){
                 if(this.storyLine.currentEnemy.getHealth() > 0) {
                     this.enemyAttack();
                 }
@@ -60,14 +62,12 @@ public class AttackController implements ActionListener{
         if(e.getActionCommand().equals("Continue")){
             if(this.player.getHealth() > 0) {
                 if(this.storyLine.currentEnemy.getHealth() == 0) {
-                    int coins = this.storyLine.currentEnemy.getCoins();
-                    this.aPanel.getStatusLabel().setText("You killed it! You got +" + coins + " coins");
-                    
-                    this.player.setCoins(this.player.getCoins()+coins);
-                    this.aPanel.updateStats();
+                    this.aPanel.getStatusLabel().setText("");
+                    this.aPanel.getStatus2Label().setText("");
                     String nodeName = storyLine.currentStoryNode;
                     StoryNode currentNode = storyLine.storyNodes.get(nodeName);
                     this.storyLine.currentStoryNode = currentNode.continuedNextName;
+                    
                     this.currentGFrame.setMenuState(State.GAME_RESUME);
                     this.currentGFrame.checkState();
                 }
@@ -83,26 +83,32 @@ public class AttackController implements ActionListener{
 //System.out.println(storyLine);
         String nodeName = storyLine.currentStoryNode;
         StoryNode currentNode = storyLine.storyNodes.get(nodeName);
+
         storyLine.currentEnemy = currentNode.currentEnemy;
+        this.aPanel.getTitle().setText("Your Turn");
+        this.aPanel.playerTurn = true;
         this.aPanel.displayEncounter();
-        System.out.println("Enemy Health: " + storyLine.currentEnemy.getHealth());
+//        System.out.println("Enemy Health: " + storyLine.currentEnemy.getHealth());
 //        this.currentEnemy = aPanel.enemy;
     }
     
     public void playerAttack() {
+        this.aPanel.getTitle().setText("Your Turn");
         int diceRollResult = this.helper.diceRoll(7);
         double multiplier = diceRollResult * 0.1 + 1;
         
         double dmgToDeal = this.player.inventory.getCurrentWeapon().getStat() * multiplier;
-        System.out.println("Multiplier: " + multiplier);
-        System.out.println("Damage to Deal: " + dmgToDeal );
-        System.out.println("Enemy Health: " + storyLine.currentEnemy.getHealth());
+//        System.out.println("Multiplier: " + multiplier);
+//        System.out.println("Damage to Deal: " + dmgToDeal );
+//        System.out.println("Enemy Health: " + storyLine.currentEnemy.getHealth());
        
         if(dmgToDeal > storyLine.currentEnemy.getHealth()) {
-            System.out.println("One shot");
+            int coins = this.storyLine.currentEnemy.getCoins();
+            this.player.setCoins(this.player.getCoins()+coins);
+            this.aPanel.updateStats();
+            this.aPanel.getStatus2Label().setText("You killed it! You got +" + coins + " coins");
             storyLine.currentEnemy.setHealth(0);
         } else {
-            System.out.println("ur gay");
             storyLine.currentEnemy.setHealth(storyLine.currentEnemy.getHealth()-dmgToDeal);
         }
         this.aPanel.getStatusLabel().setText("Your damage was multiplied by x" + multiplier + " and you dealt " + dmgToDeal + " dmg");
@@ -114,6 +120,8 @@ public class AttackController implements ActionListener{
     }
     
     public void enemyAttack() {
+        this.aPanel.getTitle().setText("Enemy Turn");
+        this.aPanel.update();
         int playerArmour = this.inventory.getCurrentArmour().getStat();
         double dmgMit = storyLine.currentEnemy.getAtkDamage() * playerArmour*0.01;
         double dmgToDeal = storyLine.currentEnemy.getAtkDamage() - dmgMit;
