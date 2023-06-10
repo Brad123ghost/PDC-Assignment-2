@@ -53,10 +53,21 @@ public class GameController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         StoryNode currentNode = storyLine.storyNodes.get(storyLine.currentStoryNode);
-        if(e.getActionCommand().equals("Fight It") || e.getActionCommand().equals("Attack It")) {
-            storyLine.currentStoryNode = currentNode.leftNodeName;
-            String nodeName = storyLine.currentStoryNode;
-            currentNode = storyLine.storyNodes.get(nodeName);
+        if(e.getActionCommand().equals("Save & Quit")) {
+            gMemory.slManager.savePlayerData();
+            currentGFrame.setMenuState(State.EXIT_GAME);
+            currentGFrame.checkState();
+        } else if(e.getActionCommand().equals("Fight It") || e.getActionCommand().equals("Attack It")) {
+            if(!currentNode.leftNodeName.equals("")) {
+                storyLine.currentStoryNode = currentNode.leftNodeName;
+                String nodeName = storyLine.currentStoryNode;
+                currentNode = storyLine.storyNodes.get(nodeName);
+                
+            } else {
+                storyLine.currentStoryNode = currentNode.rightNodeName;
+                String nodeName = storyLine.currentStoryNode;
+                currentNode = storyLine.storyNodes.get(nodeName);
+            }
             
             currentGFrame.setMenuState(State.ATTACK);
             currentGFrame.checkState();
@@ -69,18 +80,24 @@ public class GameController implements ActionListener{
 
             this.gPanel.getOptionTwoBtn().setText("Continue");  
         }
-//        else if(e.getActionCommand().equals("Continue") && !currentNode.continuedNextName.equals("")) {
-//            String nodeName = storyLine.currentStoryNode;
-//            currentNode = storyLine.storyNodes.get(nodeName);
-//            gPanel.clear();
-//            this.gPanel.displayCurrentStory(currentNode.continuedNextName);
-//        }
+        else if(e.getActionCommand().equals("Continue") && !currentNode.continuedNextName.equals("")) {
+            String nodeName = storyLine.currentStoryNode;
+            currentNode = storyLine.storyNodes.get(nodeName);
+            gPanel.clear();
+            this.gPanel.displayCurrentStory(currentNode.continuedNextName);
+        } else if(e.getActionCommand().equals("Shop")) {
+            System.out.println("SHOP OPENED");
+            currentGFrame.setMenuState(State.SHOP);
+            currentGFrame.checkState();
+        }
         else {
             String leftChoice = currentNode.leftNodeName;
             String rightChoice = currentNode.rightNodeName;
             gPanel.clear();
             if(currentNode.leftNodeName == "forestCoins" || currentNode.rightNodeName == "forestCoins") {
                 this.foundCoins(4);
+            } else if(currentNode.leftNodeName == "pathCoins" && e.getActionCommand().equals("Check it Out")) {
+                this.foundCoins(10);
             }
             if(e.getActionCommand().equals(currentNode.leftChoiceText)) {
                 gPanel.displayCurrentStory(leftChoice);
@@ -108,10 +125,6 @@ public class GameController implements ActionListener{
         this.gPanel.updateStats();
     }
     
-//    public void playerAttack() {
-//        String line1 = "Your Turn";
-//        String line2 = "Roll a dice to increase base"
-//    }
     
     public void enemyAttack() {
         
