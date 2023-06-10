@@ -53,7 +53,7 @@ public class GameController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         StoryNode currentNode = storyLine.storyNodes.get(storyLine.currentStoryNode);
-        if(e.getActionCommand().equals("Fight It")) {
+        if(e.getActionCommand().equals("Fight It") || e.getActionCommand().equals("Attack It")) {
             storyLine.currentStoryNode = currentNode.leftNodeName;
             String nodeName = storyLine.currentStoryNode;
             currentNode = storyLine.storyNodes.get(nodeName);
@@ -69,16 +69,19 @@ public class GameController implements ActionListener{
 
             this.gPanel.getOptionTwoBtn().setText("Continue");  
         }
-        else if(e.getActionCommand().equals("Continue") && !currentNode.continuedNextName.equals("")) {
-            String nodeName = storyLine.currentStoryNode;
-            currentNode = storyLine.storyNodes.get(nodeName);
-            gPanel.clear();
-            this.gPanel.displayCurrentStory(currentNode.continuedNextName);
-        }
+//        else if(e.getActionCommand().equals("Continue") && !currentNode.continuedNextName.equals("")) {
+//            String nodeName = storyLine.currentStoryNode;
+//            currentNode = storyLine.storyNodes.get(nodeName);
+//            gPanel.clear();
+//            this.gPanel.displayCurrentStory(currentNode.continuedNextName);
+//        }
         else {
             String leftChoice = currentNode.leftNodeName;
             String rightChoice = currentNode.rightNodeName;
             gPanel.clear();
+            if(currentNode.leftNodeName == "forestCoins" || currentNode.rightNodeName == "forestCoins") {
+                this.foundCoins(4);
+            }
             if(e.getActionCommand().equals(currentNode.leftChoiceText)) {
                 gPanel.displayCurrentStory(leftChoice);
             } else if(e.getActionCommand().equals(currentNode.rightChoiceText)) {
@@ -96,9 +99,13 @@ public class GameController implements ActionListener{
             gPanel.getStatus().setText("Tails! You try to regain your balance but, slip and lost 5hp");
             this.player.setHealth(this.player.getHealth()-5);
             this.gPanel.updateStats();
-        }
-        
-        
+        }   
+    }
+    
+    public void foundCoins(int coins) {
+        gPanel.getStatus().setText("You got +" + coins + " coins");
+        this.player.setCoins(this.player.getCoins() + coins);
+        this.gPanel.updateStats();
     }
     
 //    public void playerAttack() {
