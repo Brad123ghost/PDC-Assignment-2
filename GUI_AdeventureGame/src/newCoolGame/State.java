@@ -11,10 +11,11 @@ package newCoolGame;
 public enum State {
     MAIN_MENU,
     NEW_GAME,
-    LOAD_GAME,
+    LOAD_PANEL,
     GAME_START,
     ATTACK,
     GAME_RESUME,
     PAUSE_GAME,
+    LOAD_SAVE,
     EXIT_GAME
 }
