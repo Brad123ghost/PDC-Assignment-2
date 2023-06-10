@@ -21,6 +21,7 @@ public class LoadPanel extends MenuTemplate{
 //    JScrollPane userList;
     JList userList;
     JButton loadUserBtn;
+    JButton backBtn;
 
     public LoadPanel() {
         gMem = GameMemory.getGMemInstance();
@@ -29,14 +30,14 @@ public class LoadPanel extends MenuTemplate{
         this.setLayout(null);
         DefaultListModel<String> model = new DefaultListModel();
         
+        for(int i = 0; i < gMem.userList.size(); i++) {
+            System.out.println(gMem.userList.get(i));
+        }
+        
         userList = new JList(model);
-//        userNameField.setLocation(this.width/2, 150);
-//        userList.setBounds(this.width/2-125, 200, 250, 150);
-//        userList.setBackground(Color.white);
         for(int i = 0; i < gMem.userList.size(); i++) {
             model.add(i, gMem.userList.get(i));
         }
-//        this.add(userList);
         
         JScrollPane scrollPane = new JScrollPane(userList, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBounds(this.width/2-100, 150, 200, 150);
@@ -49,5 +50,24 @@ public class LoadPanel extends MenuTemplate{
         loadUserBtn.setFocusPainted(false);
         loadUserBtn.setBackground(Color.orange);
         this.add(loadUserBtn);
+        
+        backBtn = new JButton("Back");
+        backBtn.setBounds(this.width/2-75, 410, 150, 50); 
+        backBtn.setContentAreaFilled(true);
+        backBtn.setFocusPainted(false);
+        backBtn.setBackground(Color.orange);
+        this.add(backBtn);
+    }
+    
+    public JButton getLoadUserBtn() {
+        return this.loadUserBtn;
+    }
+    
+    public JButton getBackBtn() {
+        return this.backBtn;
+    }
+    
+    public JList getUserJList() {
+        return this.userList;
     }
 }
