@@ -16,12 +16,11 @@ import javax.swing.JPanel;
  *
  * @author Bradley
  */
-public class GamePanel extends JPanel{
+public class GamePanel extends InGameTemplate{
 //    StoryLine storyLine;
 //    JButton option1;
 //    JButton option2;
-    int width = 960;
-    int height = 540;
+   
     JButton pauseScreenBtn;
     JLabel status;
     JLabel displayHealth;
@@ -40,53 +39,13 @@ public class GamePanel extends JPanel{
         player = Player.getPlayerInstance();
         inventory = Inventory.getInvInstance();
         story = StoryLine.getStoryLineInstance();
-        
-        pauseScreenBtn = new JButton("Options");
-        pauseScreenBtn.setBounds(10, 10, 80, 30);
-        pauseScreenBtn.setContentAreaFilled(true);
-        pauseScreenBtn.setFocusPainted(false);
-        pauseScreenBtn.setFont(new Font("Arial", Font.PLAIN, 12));
-        pauseScreenBtn.setBackground(Color.white);
-        this.add(pauseScreenBtn);
-        
-        status = new JLabel();
-        status.setBounds(100, 290, 800, 30);
-        status.setForeground(Color.green);
-        status.setFont(new Font("Arial", Font.PLAIN, 18));
-        this.add(status); 
-        
-        this.setLayout(null);
-        displayHealth = new JLabel();
-        displayHealth.setBounds(10, 470, 120, 30);
-        displayHealth.setForeground(Color.white);
-        displayHealth.setFont(new Font("Arial", Font.PLAIN, 18));
-        this.add(displayHealth);
-        
-        displayCoins = new JLabel();
-        displayCoins.setBounds(130, 470, 100, 30);
-        displayCoins.setForeground(Color.white);
-        displayCoins.setFont(new Font("Arial", Font.PLAIN, 18));
-        this.add(displayCoins);
-        
-        displayWeaponName = new JLabel();
-        displayWeaponName.setBounds(740, 445, 200, 30);
-        displayWeaponName.setForeground(Color.white);
-        displayWeaponName.setFont(new Font("Arial", Font.PLAIN, 18));
-        this.add(displayWeaponName);
-        
-        displayArmourName = new JLabel();
-        displayArmourName.setBounds(740, 470, 200, 30);
-        displayArmourName.setForeground(Color.white);
-        displayArmourName.setFont(new Font("Arial", Font.PLAIN, 18));
-        this.add(displayArmourName);
-        
+ 
         option1Btn = new JButton();
         option1Btn.setBounds(100, 300, 150, 30);
         option1Btn.setContentAreaFilled(true);
         option1Btn.setFocusPainted(false);
         option1Btn.setBackground(Color.orange);
-        
-        
+
         option2Btn = new JButton();
         option2Btn.setBounds(650, 300, 150, 30);
         option2Btn.setContentAreaFilled(true);
@@ -99,7 +58,7 @@ public class GamePanel extends JPanel{
         
         StoryNode currentSNode = story.storyNodes.get(nodeName);
 //        System.out.println("Node Name: " + currentSNode.name);
-        story.currentStoryNode = currentSNode.name;
+        story.currentStoryNodeName = currentSNode.name;
         player.setProgress(currentSNode.name);
         displayText = new ArrayList<>();
      
@@ -127,16 +86,12 @@ public class GamePanel extends JPanel{
     }
     
     public void updateStats() {
-        displayHealth.setText("Health: " + player.health);
-
-        displayCoins.setText("Coins: " + player.coins);
-        
+        super.displayHealth.setText("Health: " + player.health);
+        super.displayCoins.setText("Coins: " + player.coins);
         Weapon currentWeapon = inventory.getCurrentWeapon();
-        displayWeaponName.setText("Weapon: " + currentWeapon.getName() + " (+" + currentWeapon.getStat() + ")");
-        
+        super.displayWeaponName.setText("Weapon: " + currentWeapon.getName() + " (+" + currentWeapon.getStat() + ")");
         Armour currentArmour = inventory.getCurrentArmour();
-        displayArmourName.setText("Armour: " + currentArmour.getName() + " (+" + currentArmour.getStat() + ")");
-        
+        super.displayArmourName.setText("Armour: " + currentArmour.getName() + " (+" + currentArmour.getStat() + ")");   
         this.update();
     }
     
@@ -144,7 +99,7 @@ public class GamePanel extends JPanel{
         for(JLabel label : displayText) {
             this.remove(label);
         }
-        this.status.setText("");
+        super.status.setText("");
     }
     
     public void update() {
@@ -152,10 +107,7 @@ public class GamePanel extends JPanel{
         this.repaint();
     }
     
-    public JButton getPauseScreenBtn() {
-        return this.pauseScreenBtn;
-    }
-    
+  
     public JButton getOptionOneBtn() {
         return this.option1Btn;
     }
@@ -164,15 +116,6 @@ public class GamePanel extends JPanel{
         return this.option2Btn;
     }
     
-    public JLabel getStatus() {
-        return this.status;
-    }
+   
     
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        
-        g.setColor(Color.black);
-        g.fillRect(0, 0, 960, 540);
-    }
 }

@@ -49,6 +49,7 @@ public class LoadPanel extends MenuTemplate{
         loadUserBtn.setContentAreaFilled(true);
         loadUserBtn.setFocusPainted(false);
         loadUserBtn.setBackground(Color.orange);
+        loadUserBtn.setEnabled(false);
         this.add(loadUserBtn);
         
         backBtn = new JButton("Back");

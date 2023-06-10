@@ -17,5 +17,6 @@ public enum State {
     GAME_RESUME,
     PAUSE_GAME,
     LOAD_SAVE,
+    SHOP,
     EXIT_GAME
 }
