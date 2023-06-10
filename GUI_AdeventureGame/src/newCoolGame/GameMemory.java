@@ -28,6 +28,7 @@ public class GameMemory {
     private static GameMemory gameMemoryInstance;
     ArrayList<String> userList;
     SaveLoadManager slManager;
+//    StoryLine story;
     
     private GameMemory(){}
     
@@ -40,6 +41,7 @@ public class GameMemory {
     }
     
     public void gMemSetup() {
+//        gameMemoryInstance.story = StoryLine.getStoryLineInstance();
         gameMemoryInstance.player = Player.getPlayerInstance();
         gameMemoryInstance.inventory = Inventory.getInvInstance();
         gameMemoryInstance.shop = Shop.getShopInstance();
@@ -113,7 +115,7 @@ public class GameMemory {
     public void createNewPlayer(String name) {
         player.name = name;
         inventory.setCurrentWeapon((Weapon)shop.getWeapIndex(0));
-        inventory.setCurrenArmour((Armour)shop.getArmourIndex(0));
+        inventory.setCurrentArmour((Armour)shop.getArmourIndex(0));
         System.out.println("New player");
     }
     
