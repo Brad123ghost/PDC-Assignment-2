@@ -58,7 +58,7 @@ public class GamePanel extends InGameTemplate{
         
         StoryNode currentSNode = story.storyNodes.get(nodeName);
 //        System.out.println("Node Name: " + currentSNode.name);
-        story.currentStoryNode = currentSNode.name;
+        story.currentStoryNodeName = currentSNode.name;
         player.setProgress(currentSNode.name);
         displayText = new ArrayList<>();
      

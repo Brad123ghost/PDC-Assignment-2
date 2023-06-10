@@ -46,7 +46,6 @@ public class AttackController implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         System.out.println(e.getActionCommand());
         if(this.storyLine.currentEnemy.getHealth() > 0 && (this.player.getHealth() > 0)) {
             if(e.getActionCommand().equals("Roll Dice")) {
@@ -64,9 +63,9 @@ public class AttackController implements ActionListener{
                 if(this.storyLine.currentEnemy.getHealth() == 0) {
                     this.aPanel.getStatusLabel().setText("");
                     this.aPanel.getStatus2Label().setText("");
-                    String nodeName = storyLine.currentStoryNode;
+                    String nodeName = storyLine.currentStoryNodeName;
                     StoryNode currentNode = storyLine.storyNodes.get(nodeName);
-                    this.storyLine.currentStoryNode = currentNode.continuedNextName;
+                    this.storyLine.currentStoryNodeName = currentNode.continuedNextName;
                     
                     this.currentGFrame.setMenuState(State.GAME_RESUME);
                     this.currentGFrame.checkState();
@@ -81,7 +80,7 @@ public class AttackController implements ActionListener{
     public void startEncounter() {
 //        this.aPanel.startEncounter();
 //System.out.println(storyLine);
-        String nodeName = storyLine.currentStoryNode;
+        String nodeName = storyLine.currentStoryNodeName;
         StoryNode currentNode = storyLine.storyNodes.get(nodeName);
 
         storyLine.currentEnemy = currentNode.currentEnemy;

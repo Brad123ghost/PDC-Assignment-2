@@ -13,6 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import newCoolGame.GameFrame;
 
 /**
@@ -62,6 +64,8 @@ public class MenuController {
         ngPanel.setErrorMsg("");
         ngPanel.setErrorMsg2("");
         ngPanel.getNameField().setText("");
+        lPanel.getUserJList().clearSelection();
+        lPanel.getLoadUserBtn().setEnabled(false);
         currentGFrame.setMenuState(State.MAIN_MENU);
         currentGFrame.checkState();
     }
@@ -141,6 +145,15 @@ public class MenuController {
                 eventHandleLoadPlayerData();
             }
         });
+        
+        lPanel.getUserJList().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                lPanel.getLoadUserBtn().setEnabled(true);
+            }
+            
+        });
+ 
         
         mPanel.getEGBtn().addActionListener(new ActionListener() {
             @Override

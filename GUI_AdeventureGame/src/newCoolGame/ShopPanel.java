@@ -28,18 +28,20 @@ public class ShopPanel extends InGameTemplate{
     private JButton upgradeHealthBtn;
     private JButton exitShopBtn;
     
+    String msg = "";
+    
     public ShopPanel() {
         player = Player.getPlayerInstance();
         inventory = Inventory.getInvInstance();
         
-        upgradeWeaponBtn = new JButton("Spear +5 dmg - 10 Coins");
+        upgradeWeaponBtn = new JButton();
         upgradeWeaponBtn.setBounds((this.width/2)-375, 240, 200, 50);
         upgradeWeaponBtn.setContentAreaFilled(true);
         upgradeWeaponBtn.setFocusPainted(false);
         upgradeWeaponBtn.setBackground(Color.orange);
         this.add(upgradeWeaponBtn);
         
-        upgradeArmourBtn = new JButton("Leather +5 armour - 10 Coins");
+        upgradeArmourBtn = new JButton();
         upgradeArmourBtn.setBounds((this.width/2)-100, 240, 200, 50);
         upgradeArmourBtn.setContentAreaFilled(true);
         upgradeArmourBtn.setFocusPainted(false);
@@ -59,6 +61,7 @@ public class ShopPanel extends InGameTemplate{
         exitShopBtn.setFocusPainted(false);
         exitShopBtn.setBackground(Color.orange);
         this.add(exitShopBtn);
+        
     }
     
      public void updateStats() {
@@ -75,6 +78,25 @@ public class ShopPanel extends InGameTemplate{
         this.validate();
         this.repaint();
     }
+    
+    public JButton getUpgradeWeaponBtn() {
+        return this.upgradeWeaponBtn;
+    }
+    
+    public JButton getUpgradeArmourBtn() {
+        return this.upgradeArmourBtn;
+    }
+    public JButton getUpgradeHealthBtn() {
+        return this.upgradeHealthBtn;
+    }
+    public JButton getExitShopBtn() {
+        return this.exitShopBtn;
+    }
+    
+    public void setMessage(String msg) {
+        this.msg = msg;
+    }
+    
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
  
@@ -82,9 +104,24 @@ public class ShopPanel extends InGameTemplate{
         g.setFont(new Font("Arial", Font.PLAIN, 30));
         this.getMetrics(g, "SHOP");
         g.drawString("SHOP", (this.width-(int)bounds.getWidth())/2, 100); 
+        
+        g.setColor(Color.MAGENTA);
+        g.setFont(new Font("Arial", Font.PLAIN, 14));
+        this.getMetrics(g, "(CANNOT REOPEN SHOP ONCE YOU LEAVE)");
+        g.drawString("(CANNOT REOPEN SHOP ONCE YOU LEAVE)", (this.width-(int)bounds.getWidth())/2, 125); 
+        if(msg.contains("coins")){
+             g.setColor(Color.red);
+        } else {
+             g.setColor(Color.GREEN);
+        }
+        g.setFont(new Font("Arial", Font.PLAIN, 20));
+        this.getMetrics(g, msg);
+        g.drawString(msg, (this.width-(int)bounds.getWidth())/2, 200); 
     }
     public void getMetrics(Graphics g, String boundText) {
         fm = g.getFontMetrics();
         bounds = fm.getStringBounds(boundText, g);
     }
+    
+    
 }

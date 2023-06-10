@@ -52,20 +52,20 @@ public class GameController implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        StoryNode currentNode = storyLine.storyNodes.get(storyLine.currentStoryNode);
+        StoryNode currentNode = storyLine.storyNodes.get(storyLine.currentStoryNodeName);
         if(e.getActionCommand().equals("Save & Quit")) {
             gMemory.slManager.savePlayerData();
             currentGFrame.setMenuState(State.EXIT_GAME);
             currentGFrame.checkState();
         } else if(e.getActionCommand().equals("Fight It") || e.getActionCommand().equals("Attack It")) {
             if(!currentNode.leftNodeName.equals("")) {
-                storyLine.currentStoryNode = currentNode.leftNodeName;
-                String nodeName = storyLine.currentStoryNode;
+                storyLine.currentStoryNodeName = currentNode.leftNodeName;
+                String nodeName = storyLine.currentStoryNodeName;
                 currentNode = storyLine.storyNodes.get(nodeName);
                 
             } else {
-                storyLine.currentStoryNode = currentNode.rightNodeName;
-                String nodeName = storyLine.currentStoryNode;
+                storyLine.currentStoryNodeName = currentNode.rightNodeName;
+                String nodeName = storyLine.currentStoryNodeName;
                 currentNode = storyLine.storyNodes.get(nodeName);
             }
             
@@ -73,7 +73,7 @@ public class GameController implements ActionListener{
             currentGFrame.checkState();
             
         } else if(e.getActionCommand().equals("Flip Coin")) {
-            String nodeName = storyLine.currentStoryNode;
+            String nodeName = storyLine.currentStoryNodeName;
             currentNode = storyLine.storyNodes.get(nodeName);
             System.out.println(e.getActionCommand());
             this.riverCoinFlip();
@@ -81,7 +81,7 @@ public class GameController implements ActionListener{
             this.gPanel.getOptionTwoBtn().setText("Continue");  
         }
         else if(e.getActionCommand().equals("Continue") && !currentNode.continuedNextName.equals("")) {
-            String nodeName = storyLine.currentStoryNode;
+            String nodeName = storyLine.currentStoryNodeName;
             currentNode = storyLine.storyNodes.get(nodeName);
             gPanel.clear();
             this.gPanel.displayCurrentStory(currentNode.continuedNextName);

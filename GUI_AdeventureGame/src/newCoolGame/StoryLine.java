@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class StoryLine {
     HashMap<String, StoryNode> storyNodes;
     ArrayList<String> text;
-    String currentStoryNode;
+    String currentStoryNodeName;
     Enemy currentEnemy;
     GameMemory gMem;
     private StoryLine(){};

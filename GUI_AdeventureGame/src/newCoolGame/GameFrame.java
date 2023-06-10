@@ -81,7 +81,7 @@ public class GameFrame{
         
         this.frame.add(menuPanel);
         this.frame.setVisible(true);
-        
+        this.frame.setResizable(false);
         
 
     }
@@ -149,7 +149,7 @@ public class GameFrame{
             case GAME_RESUME:
                 this.gamePanel.clear();
                 this.gamePanel.updateStats();
-                this.gamePanel.displayCurrentStory(story.currentStoryNode);
+                this.gamePanel.displayCurrentStory(story.currentStoryNodeName);
                 this.frame.remove(menuPanel);
                 this.frame.remove(newGamePanel);
                 this.frame.remove(attackPanel);
@@ -165,6 +165,9 @@ public class GameFrame{
                 break;
             case SHOP:
                 this.shopPanel.updateStats();
+                this.shopController.updateUpgrades();
+                StoryNode currentNode = this.story.storyNodes.get(this.story.currentStoryNodeName);
+                this.story.currentStoryNodeName = currentNode.continuedNextName;
                 this.frame.remove(gamePanel);
                 this.frame.remove(attackPanel);
                 this.frame.remove(pausedPanel);
