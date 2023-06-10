@@ -93,7 +93,7 @@ public class AttackController implements ActionListener{
     
     public void playerAttack() {
         this.aPanel.getTitle().setText("Your Turn");
-        int diceRollResult = this.helper.diceRoll(7);
+        int diceRollResult = this.helper.diceRoll(6)+1;
         double multiplier = diceRollResult * 0.1 + 1;
         
         double dmgToDeal = this.player.inventory.getCurrentWeapon().getStat() * multiplier;
@@ -110,7 +110,7 @@ public class AttackController implements ActionListener{
         } else {
             storyLine.currentEnemy.setHealth(storyLine.currentEnemy.getHealth()-dmgToDeal);
         }
-        this.aPanel.getStatusLabel().setText("Your damage was multiplied by x" + multiplier + " and you dealt " + dmgToDeal + " dmg");
+        this.aPanel.getStatusLabel().setText("You Rolled a " + diceRollResult + ". Your damage was multiplied by x" + multiplier + " and you dealt " + dmgToDeal + " dmg");
         this.aPanel.updateStats();
         this.aPanel.playerTurn = false;
         this.aPanel.displayEncounter();
@@ -131,7 +131,7 @@ public class AttackController implements ActionListener{
             this.player.setHealth(this.player.getHealth()-dmgToDeal);
         }
         
-        this.aPanel.getStatusLabel().setText("Incoming damage was mitigated by " + dmgMit +" dmg. You took " + dmgToDeal + " dmg");
+        this.aPanel.getStatusLabel().setText("You had " + playerArmour + " armour. Incoming damage was mitigated by " + dmgMit +" dmg. You took " + dmgToDeal + " dmg");
         this.aPanel.updateStats();
         this.aPanel.playerTurn = true;
         this.aPanel.displayEncounter();

@@ -49,18 +49,6 @@ public class GameFrame{
         this.frame = new JFrame("Adventure Game");
         this.frame.setSize(width, height);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        this.frame.addWindowListener(new WindowAdapter() {
-//            @Override
-//            public void windowClosing(WindowEvent e) {
-//                int x = JOptionPane.showConfirmDialog(null, "Do you really want to quit?", "Close", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-//                if(x == JOptionPane.YES_OPTION) {
-//                    e.getWindow().dispose();
-//                    System.out.println("Closed");
-//                } else {
-//                    System.out.println("Not Closed");
-//                }
-//            }
-//        });
         
         this.menuPanel = new MenuPanel();
         this.newGamePanel = new NewGamePanel();
@@ -193,6 +181,42 @@ public class GameFrame{
     
     public void setMenuState(State newState) {
         this.mState = newState;
+    }
+    
+    public MenuPanel getMenuPanel() {
+        return menuPanel;
+    }
+
+    public NewGamePanel getNewGamePanel() {
+        return newGamePanel;
+    }
+    
+    public LoadPanel getLoadPanel() {
+        return loadPanel;
+    }
+
+    public PausedPanel getPausedPanel() {
+        return pausedPanel;
+    }
+
+    public ShopPanel getShopPanel() {
+        return shopPanel;
+    }
+
+    public GamePanel getGamePanel() {
+        return gamePanel;
+    }
+
+    public AttackPanel getAttackPanel() {
+        return attackPanel;
+    }
+    
+    public MenuController getMenuController() {
+        return menuController;
+    }
+    
+    public ShopController getShopController() {
+        return shopController;
     }
  
 }

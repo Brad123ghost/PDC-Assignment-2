@@ -404,7 +404,7 @@ public class StoryLine {
         text = new ArrayList<>();
         String line1 = "Whilst traveling on the path, you see in the distance what seems to";
         String line2 = "be a small town, you tunnel vision onto the town, however, something";
-        String line3 = "else catches your attention.It seems to be glimmer. You wonder what it could be.";
+        String line3 = "else catches your attention. It seems to be glimmer. You wonder what it could be.";
         text.add(line1);
         text.add(line2);
         text.add(line3);
@@ -443,7 +443,7 @@ public class StoryLine {
     
     public void createPathEncounterTwo() {
         text = new ArrayList<>();
-        String line1 = "As you reach the town you notice an Armoured Crab guarding the entrance";
+        String line1 = "As you reach the town you notice an Armoured Crab guarding the entrance.";
         String line2 = "Lilly, a towns member shouts at you to defeat the Armoured Crab so that";
         String line3 = "she can open the gates for you.";
         text.add(line1);

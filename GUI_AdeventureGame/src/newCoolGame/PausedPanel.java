@@ -31,6 +31,8 @@ public class PausedPanel extends MenuTemplate{
         saveExitBtn.setFocusPainted(false);
         saveExitBtn.setBackground(Color.orange);
         this.add(saveExitBtn);
+        
+
 
     }
     
@@ -41,4 +43,5 @@ public class PausedPanel extends MenuTemplate{
     public JButton getSEBtn() {
         return this.saveExitBtn;
     }
+
 }

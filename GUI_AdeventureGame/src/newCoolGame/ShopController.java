@@ -72,7 +72,7 @@ public class ShopController {
         int upgradePrice = nextWeap.getPrice();
         coins = player.getCoins();
         
-        if(coins > upgradePrice) {
+        if(coins >= upgradePrice) {
             sPanel.setMessage("Weapon Upgraded");
             player.setCoins(coins - upgradePrice);
             inv.setCurrentWeapon(nextWeap);
@@ -88,7 +88,7 @@ public class ShopController {
         int upgradePrice = nextArmour.getPrice();
         coins = player.getCoins();
         
-        if(coins > upgradePrice) {
+        if(coins >= upgradePrice) {
             sPanel.setMessage("Armour Upgraded");
             player.setCoins(coins - upgradePrice);
             inv.setCurrentArmour(nextArmour);
@@ -103,8 +103,8 @@ public class ShopController {
     public void eventHandleHealth() {
         int upgradePrice = 5;
         coins = player.getCoins();
-        
-        if(coins > upgradePrice) {
+        System.out.println("PLAYER COINS: " + coins);
+        if(coins >= upgradePrice) {
             sPanel.setMessage("Health Upgraded");
             player.setCoins(coins - upgradePrice);
             player.setHealth(player.getHealth() + 5);
@@ -113,6 +113,7 @@ public class ShopController {
         } else {
             sPanel.setMessage("You do not have enough coins");
         }
+        System.out.println("PLAYER HEALTH: " + player.getHealth());
         sPanel.update();
     }
     

@@ -6,6 +6,7 @@ package newCoolGame;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -70,11 +71,29 @@ public class NewGamePanel extends MenuTemplate{
         return this.backBtn;
     }
     
+    public JLabel getErrorMsgOne() {
+        return this.errorMsg;
+    }
+    
+    public JLabel getErrorMsgTwo() {
+        return this.errorMsg2;
+   }
+    
     public void setErrorMsg(String msg) {
         this.errorMsg.setText(msg);
     }
     
     public void setErrorMsg2(String msg) {
         this.errorMsg2.setText(msg);
+    }
+    
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        
+        g.setColor(Color.MAGENTA);
+        g.setFont(new Font("Arial", Font.PLAIN, 14));
+        super.getMetrics(g, "(No Spaces, No Numbers, No Special Characters)");
+        g.drawString("(No Spaces, No Numbers, No Special Characters)", (this.width-(int)bounds.getWidth())/2, 280); 
     }
 }
