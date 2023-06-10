@@ -29,6 +29,7 @@ public class DBGame {
     }
     
     public void dbSetUp() {
+        System.out.println(this.checkDBTable("Player"));
         if(!this.checkDBTable("PLAYER")) {
             this.createPlayerTable();
         }
@@ -43,7 +44,8 @@ public class DBGame {
                 + "PLAYERID INT,"
                 + "NAME VARCHAR(255),"
                 + "PROGRESSID VARCHAR(255),"
-                + "HEALTH INT, COINS INT,"
+                + "HEALTH DOUBLE, "
+                + "COINS INT,"
                 + "WEAPONID INT,"
                 + "ARMOURID INT)";
         

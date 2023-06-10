@@ -4,6 +4,11 @@
  */
 package newCoolGame;
 
+import Database.DBManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import newCoolGame.Inventory;
 
 /**
@@ -11,6 +16,7 @@ import newCoolGame.Inventory;
  * @author Bradley
  */
 public class Player {
+    int lastID;
     int playerID;
     String name;
     double health;
@@ -18,6 +24,7 @@ public class Player {
     int coins;
     Inventory inventory;
     public static Player playerInstance;
+    DBManager dbManager = DBManager.getDBInstance();
 
     private Player() {};
     
@@ -28,9 +35,29 @@ public class Player {
             playerInstance.health = 100;
             playerInstance.progress = null;
             playerInstance.inventory = Inventory.getInvInstance();
+            playerInstance.setPlayerID();
         }
         
         return playerInstance;
+    }
+    
+    private void setPlayerID() {
+        String selectQuery = "SELECT COUNT(*) FROM PLAYER";
+        
+        try {
+            ResultSet rs = dbManager.queryDB(selectQuery);
+            if(rs != null) {
+                while(rs.next()) {
+                    lastID = rs.getInt("1");
+                }  
+            } else {
+                lastID = 0;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GameMemory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(lastID);
+        this.playerID = lastID+1;
     }
     
     public double getHealth() {

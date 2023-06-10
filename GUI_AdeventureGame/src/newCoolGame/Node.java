@@ -21,6 +21,10 @@ public abstract class Node {
         this.price = price;
     }
     
+    public int getID() {
+        return this.id;
+    }
+    
     public String getName() {
         return this.name;
     }

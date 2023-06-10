@@ -26,6 +26,8 @@ public class GameFrame{
     private MenuController menuController;
     private MenuPanel menuPanel;
     private NewGamePanel newGamePanel;
+    private LoadPanel loadPanel;
+    private PausedPanel pausedPanel;
     
     // Game Panel/Controller
     private GameController gameController;
@@ -60,15 +62,19 @@ public class GameFrame{
         
         this.menuPanel = new MenuPanel();
         this.newGamePanel = new NewGamePanel();
-        this.menuController = new MenuController(this, menuPanel, newGamePanel);
-        
+        this.loadPanel = new LoadPanel();
+        this.pausedPanel = new PausedPanel();
+
         gMemory.queryShopUpgrades();
         gMemory.queryEnemies();
+        
         this.story = StoryLine.getStoryLineInstance();
         this.gamePanel = new GamePanel();
         this.gameController = new GameController(this, gamePanel);
         this.attackPanel = new AttackPanel();
-        this.attackController = new AttackController(this, attackPanel);
+        this.menuController = new MenuController(this, menuPanel, newGamePanel, loadPanel, pausedPanel, loadPanel, gamePanel);
+        this.attackController = new AttackController(this, attackPanel, this.gamePanel);
+        
         this.frame.add(menuPanel);
         this.frame.setVisible(true);
         
@@ -82,14 +88,36 @@ public class GameFrame{
                 this.frame.remove(newGamePanel);
                 this.frame.remove(gamePanel);
                 this.frame.remove(attackPanel);
+                this.frame.remove(pausedPanel);
+                this.frame.remove(loadPanel);
                 this.frame.add(menuPanel);
               
                 break;
             case NEW_GAME:
                 this.frame.remove(menuPanel);
                 this.frame.remove(gamePanel);
-                this.frame.remove(attackPanel);
+                this.frame.remove(loadPanel);
+                this.frame.remove(pausedPanel);
                 this.frame.add(newGamePanel);
+                break;
+            case LOAD_PANEL:
+//                gMemory.slManager.retrievePlayerData(name);
+//                this.gamePanel.displayCurrentStory(story.currentStoryNode);
+                this.frame.remove(menuPanel);
+                this.frame.remove(gamePanel);
+                this.frame.remove(attackPanel);
+                this.frame.remove(pausedPanel);
+                this.frame.add(loadPanel);
+                break;
+            case LOAD_SAVE:
+                this.gamePanel.displayCurrentStory(gMemory.player.getProgress());
+                this.gameController.addGamePanelListeners();
+                this.frame.remove(menuPanel);
+                this.frame.remove(gamePanel);
+                this.frame.remove(attackPanel);
+                this.frame.remove(pausedPanel);
+                this.frame.remove(loadPanel);
+                this.frame.add(gamePanel);
                 break;
             case GAME_START:
                 this.gamePanel.updateStats();
@@ -97,25 +125,33 @@ public class GameFrame{
                 this.gameController.addGamePanelListeners();
                 this.frame.remove(menuPanel);
                 this.frame.remove(newGamePanel);
+                this.frame.remove(pausedPanel);
                 this.frame.remove(attackPanel);
                 this.frame.add(gamePanel);
                 break;
             case ATTACK:
-                this.attackController.addAttackPanelListeners();
+//                this.attackController.addAttackPanelListeners();
                 this.attackController.startEncounter();
                 this.attackPanel.updateStats();
                 this.frame.remove(menuPanel);
                 this.frame.remove(gamePanel);
-                this.frame.remove(gamePanel);
+                this.frame.remove(pausedPanel);
                 this.frame.add(attackPanel);
                 break;
             case GAME_RESUME:
                 this.gamePanel.clear();
+                this.gamePanel.updateStats();
                 this.gamePanel.displayCurrentStory(story.currentStoryNode);
                 this.frame.remove(menuPanel);
                 this.frame.remove(newGamePanel);
                 this.frame.remove(attackPanel);
+                this.frame.remove(pausedPanel);
                 this.frame.add(gamePanel);
+                break;           
+            case PAUSE_GAME:
+                this.frame.remove(gamePanel);
+                this.frame.remove(attackPanel);
+                this.frame.add(pausedPanel);
                 break;
             case EXIT_GAME:
 //                int x = JOptionPane.showConfirmDialog(null, "Do you really want to quit?", "Close", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);

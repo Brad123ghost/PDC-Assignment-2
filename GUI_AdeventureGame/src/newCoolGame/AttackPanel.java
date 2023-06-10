@@ -29,6 +29,7 @@ public class AttackPanel extends JPanel{
     JLabel enemyAtkDmg;
     JLabel reward;
     JLabel status;
+    JLabel status2;
     JLabel displayHealth;
     JLabel displayCoins;
     JLabel displayWeaponName;
@@ -82,7 +83,7 @@ public class AttackPanel extends JPanel{
         option2Btn.setFocusPainted(false);
         option2Btn.setBackground(Color.orange);
         
-        title = new JLabel("Your Turn");
+        title = new JLabel("");
         title.setBounds(100, 100, 800, 30);
         title.setForeground(Color.white);
         title.setFont(new Font("Arial", Font.PLAIN, 25));
@@ -123,6 +124,12 @@ public class AttackPanel extends JPanel{
         status.setForeground(Color.green);
         status.setFont(new Font("Arial", Font.PLAIN, 18));
         this.add(status); 
+        
+        status2 = new JLabel();
+        status2.setBounds(100, 320, 800, 30);
+        status2.setForeground(Color.green);
+        status2.setFont(new Font("Arial", Font.PLAIN, 18));
+        this.add(status2); 
     }
     
 //    public void startEncounter() {
@@ -134,9 +141,8 @@ public class AttackPanel extends JPanel{
 //    }
     
     public void displayEncounter() {
-        System.out.println(story.currentEnemy);
-        System.out.println("Hello");
-        System.out.println(story.currentStoryNode);
+//        System.out.println("Current Enemy: " + story.currentEnemy);
+//        System.out.println(story.currentStoryNode);
         if(playerTurn == true) {
             this.remove(option2Btn);
             this.add(option1Btn);
@@ -166,6 +172,10 @@ public class AttackPanel extends JPanel{
         this.repaint();
     }
     
+    public JLabel getTitle() {
+        return this.title;
+    }
+    
     public JButton getOptionOneBtn() {
         return this.option1Btn;
     }
@@ -176,6 +186,10 @@ public class AttackPanel extends JPanel{
     
     public JLabel getStatusLabel() {
         return this.status;
+    }
+    
+    public JLabel getStatus2Label() {
+        return this.status2;
     }
     
     @Override

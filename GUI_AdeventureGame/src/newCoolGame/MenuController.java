@@ -7,6 +7,10 @@ package newCoolGame;
 import newCoolGame.State;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import newCoolGame.GameFrame;
@@ -21,13 +25,22 @@ public class MenuController {
     
     MenuPanel mPanel;
     NewGamePanel ngPanel;
+    LoadPanel lPanel;
+    PausedPanel pPanel;
+    GamePanel gPanel;
     
-    public MenuController(GameFrame gFrame, MenuPanel mPanel, NewGamePanel ngPanel) {
+    SaveLoadManager saveLoadManager;
+    
+    public MenuController(GameFrame gFrame, MenuPanel mPanel, NewGamePanel ngPanel, LoadPanel loadPanel, PausedPanel pPanel, LoadPanel lPanel, GamePanel gPanel) {
         this.gMemory = GameMemory.getGMemInstance();
         this.currentGFrame = gFrame;
         this.mPanel = mPanel;
         this.ngPanel = ngPanel;
+        this.lPanel = lPanel;
+        this.pPanel = pPanel;
+        this.gPanel = gPanel;
         this.eventListener();
+        this.saveLoadManager = new SaveLoadManager();
     }
     
     private void eventHandleNewGame() {
@@ -37,7 +50,28 @@ public class MenuController {
     }
     private void eventHandleLoadGame() {
 //        System.out.println("Load Game");
+//        gMemory.slManager.getPlayerList();
+//        System.out.println(gMemory.userList.get(0));
+        currentGFrame.setMenuState(State.LOAD_PANEL);
+        currentGFrame.checkState();
     }
+    
+    private void eventHandleMainMenu() {
+        ngPanel.setErrorMsg("");
+        ngPanel.setErrorMsg2("");
+        ngPanel.getNameField().setText("");
+        currentGFrame.setMenuState(State.MAIN_MENU);
+        currentGFrame.checkState();
+    }
+    
+    private void eventHandleLoadPlayerData() {
+        String name = (String)lPanel.getUserJList().getSelectedValue();
+        gMemory.slManager.retrievePlayerData(name);
+        
+        currentGFrame.setMenuState(State.LOAD_SAVE);
+        currentGFrame.checkState();
+    }
+    
     private void eventHandleExitGame() {
 //        System.out.println("Exit Game");
         currentGFrame.setMenuState(State.EXIT_GAME);
@@ -47,16 +81,35 @@ public class MenuController {
     private void eventHandleStartGame() {
 //        System.out.println("Start Game");
         JTextField nameField = ngPanel.getNameField();
-        String name = nameField.getText();
+        String name = nameField.getText().toLowerCase();
         System.out.println(name);
         if(!checkValidString(name)) {
-            ngPanel.setErrorMsg();
+            ngPanel.setErrorMsg2("");
+            ngPanel.setErrorMsg("Invalid Input!");
         } else {
-            gMemory.createNewPlayer(name);
-            currentGFrame.setMenuState(State.GAME_START);
-            currentGFrame.checkState();
-        }
-        
+            boolean resultExistUser = gMemory.slManager.searchPlayer(name);
+            
+            if(resultExistUser == true) {
+                ngPanel.setErrorMsg("");
+                ngPanel.setErrorMsg2("Player already exist!");
+            } else {
+                gMemory.createNewPlayer(name);
+                currentGFrame.setMenuState(State.GAME_START);
+                currentGFrame.checkState();
+            }
+            
+        } 
+    }
+    private void eventHandleResumeGame() {
+        currentGFrame.setMenuState(State.GAME_RESUME);
+        currentGFrame.checkState();
+    }
+    
+    private void eventHandleSaveExitGame() {
+//        saveLoadManager.savePlayerData();
+        gMemory.slManager.savePlayerData();
+        currentGFrame.setMenuState(State.EXIT_GAME);
+        currentGFrame.checkState();
     }
     
     private void eventListener() {
@@ -72,6 +125,21 @@ public class MenuController {
                 eventHandleLoadGame();
             }
         });
+        
+        lPanel.getBackBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eventHandleMainMenu();
+            }
+        });
+        
+        lPanel.getLoadUserBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eventHandleLoadPlayerData();
+            }
+        });
+        
         mPanel.getEGBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -83,6 +151,27 @@ public class MenuController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 eventHandleStartGame();
+            }
+        });
+        
+        ngPanel.getBackBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eventHandleMainMenu();
+            }
+        });
+        
+        pPanel.getRGBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eventHandleResumeGame();
+            }
+        });
+        
+        pPanel.getSEBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eventHandleSaveExitGame();
             }
         });
     }
