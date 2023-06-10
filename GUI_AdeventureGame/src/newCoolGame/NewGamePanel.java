@@ -17,17 +17,25 @@ import javax.swing.JTextField;
 public class NewGamePanel extends MenuTemplate{
     private JTextField userNameField;
     private JButton startGameBtn;
+    private JButton backBtn;
     private JLabel errorMsg;
+    private JLabel errorMsg2;
     
     public NewGamePanel() {
         super.setTitleText("Enter Your Name");
         this.setLayout(null);
-        errorMsg = new JLabel("Invalid Input!");
+        errorMsg = new JLabel();
         errorMsg.setBounds(this.width/2-50, 260, 101, 30);
         errorMsg.setForeground(Color.red);
         errorMsg.setFont(new Font("SansSerif", Font.PLAIN, 18));
-        errorMsg.setVisible(false);
+//        errorMsg.setVisible(false);
         this.add(errorMsg);
+        
+        errorMsg2 = new JLabel();
+        errorMsg2.setBounds(this.width/2-90, 260, 180, 30);
+        errorMsg2.setForeground(Color.red);
+        errorMsg2.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        this.add(errorMsg2);
         
         userNameField = new JTextField();
 //        userNameField.setLocation(this.width/2, 150);
@@ -41,6 +49,13 @@ public class NewGamePanel extends MenuTemplate{
         startGameBtn.setFocusPainted(false);
         startGameBtn.setBackground(Color.orange);
         this.add(startGameBtn);
+        
+        backBtn = new JButton("Back");
+        backBtn.setBounds(this.width/2-75, 410, 150, 50); 
+        backBtn.setContentAreaFilled(true);
+        backBtn.setFocusPainted(false);
+        backBtn.setBackground(Color.orange);
+        this.add(backBtn);
     }
     
     public JTextField getNameField() {
@@ -51,7 +66,15 @@ public class NewGamePanel extends MenuTemplate{
         return this.startGameBtn;
     }
     
-    public void setErrorMsg() {
-        this.errorMsg.setVisible(true);
+    public JButton getBackBtn() {
+        return this.backBtn;
+    }
+    
+    public void setErrorMsg(String msg) {
+        this.errorMsg.setText(msg);
+    }
+    
+    public void setErrorMsg2(String msg) {
+        this.errorMsg2.setText(msg);
     }
 }
