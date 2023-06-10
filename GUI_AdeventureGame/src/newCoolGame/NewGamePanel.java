@@ -94,6 +94,6 @@ public class NewGamePanel extends MenuTemplate{
         g.setColor(Color.MAGENTA);
         g.setFont(new Font("Arial", Font.PLAIN, 14));
         super.getMetrics(g, "(No Spaces, No Numbers, No Special Characters)");
-        g.drawString("(No Spaces, No Numbers, No Special Characters)", (this.width-(int)bounds.getWidth())/2, 280); 
+        g.drawString("(No Spaces, No Numbers, No Special Characters)", (this.width-(int)bounds.getWidth())/2, 250); 
     }
 }
