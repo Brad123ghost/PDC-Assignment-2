@@ -150,11 +150,9 @@ public class MenuController {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 lPanel.getLoadUserBtn().setEnabled(true);
-            }
-            
+            }     
         });
- 
-        
+
         mPanel.getEGBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -190,6 +188,17 @@ public class MenuController {
             }
         });
     }
+    
+    public void eventHandleTestMenu() {
+        gMemory.getGMemInstance().player = null;
+        gMemory.getGMemInstance().inventory = null;
+        gMemory.getGMemInstance().shop = null;
+        gMemory.getGMemInstance().dbManager = null;
+        gMemory.resetGMemInstance();
+        currentGFrame.setMenuState(State.MAIN_MENU);
+        currentGFrame.checkState();
+    }
+    
     
     private boolean checkValidString(String toCheck) {
         if(!toCheck.matches("[a-zA-Z]+") || toCheck.equals("")) {

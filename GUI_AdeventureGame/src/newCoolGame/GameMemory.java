@@ -40,6 +40,11 @@ public class GameMemory {
         return gameMemoryInstance;
     }
     
+    public void resetGMemInstance() {
+        gameMemoryInstance = null;
+        gameMemoryInstance = GameMemory.getGMemInstance();
+    }
+    
     public void gMemSetup() {
 //        gameMemoryInstance.story = StoryLine.getStoryLineInstance();
         gameMemoryInstance.player = Player.getPlayerInstance();

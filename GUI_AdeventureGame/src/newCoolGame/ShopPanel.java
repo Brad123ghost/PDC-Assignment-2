@@ -97,10 +97,15 @@ public class ShopPanel extends InGameTemplate{
         this.msg = msg;
     }
     
+    public String getMessage() {
+        return this.msg;
+    }
+    
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
  
         g.setColor(Color.GREEN);
+        
         g.setFont(new Font("Arial", Font.PLAIN, 30));
         this.getMetrics(g, "SHOP");
         g.drawString("SHOP", (this.width-(int)bounds.getWidth())/2, 100); 

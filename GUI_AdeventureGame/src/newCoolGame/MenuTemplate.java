@@ -20,8 +20,8 @@ public class MenuTemplate extends JPanel{
     int width = 960;
     int height = 540;
     
-    private FontMetrics fm;
-    private Rectangle2D bounds;
+     FontMetrics fm;
+     Rectangle2D bounds;
     
     @Override
     public void paintComponent(Graphics g) {

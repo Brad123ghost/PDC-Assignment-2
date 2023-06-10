@@ -28,6 +28,7 @@ public class SaveLoadManager {
         int playerID = player.playerID;
         String name = player.name.toLowerCase();
         String progressID = player.getProgress();
+        System.out.println(progressID);
         double health = player.getHealth();
         int coins = player.getCoins();
         int weaponID = player.inventory.getCurrentWeapon().getID();
@@ -48,13 +49,14 @@ public class SaveLoadManager {
             dbManager.updateDB(insertQuery);
             System.out.println("Player Saved");
         } else {
-            updateQuery = "UPDATE PLAYER SET"
+            updateQuery = "UPDATE PLAYER SET "
                     + "PROGRESSID = '" + progressID + "',"
                     + "HEALTH = " + health + ","
                     + "COINS = " + coins + ","
                     + "WEAPONID = " + weaponID + ","
-                    + "ARMOURID = " + armourID
-                    + "WHERE PLAYERID = " + playerID; 
+                    + "ARMOURID = " + armourID + " "
+                    + "WHERE NAME = '" + name + "'"; 
+           
             dbManager.updateDB(updateQuery);
             System.out.println("Player Updated");
         }
