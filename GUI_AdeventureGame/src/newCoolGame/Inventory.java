@@ -31,7 +31,7 @@ public class Inventory {
         return this.currentWeapon;
     }
     
-    public void setCurrenArmour(Armour armour) {
+    public void setCurrentArmour(Armour armour) {
         currentArmour = armour;
     }
     public Armour getCurrentArmour() {
