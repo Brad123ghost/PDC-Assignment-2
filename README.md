@@ -3,5 +3,5 @@
 This game was developed for my course COMP 610, Program Design and Construction.
 
 ## Features
-Progress saving
+Progress saving\
 Shop System
